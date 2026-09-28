@@ -8,26 +8,26 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  /* PwC Brand Colours */
+  /* PwC Brand Colours — orange/yellow palette */
   --pwc-orange:        #E05A1B;
   --pwc-orange-light:  #FEF0E8;
   --pwc-orange-mid:    #FBCFB3;
   --pwc-orange-dk:     #A63A07;
 
-  --pwc-purple:        #7B35A2;
-  --pwc-purple-light:  #F4EEFF;
-  --pwc-purple-mid:    #DDBFF8;
-  --pwc-purple-dk:     #55207A;
+  --pwc-amber:         #D97706;
+  --pwc-amber-light:   #FFFBEB;
+  --pwc-amber-mid:     #FDE68A;
+  --pwc-amber-dk:      #92400E;
 
-  --pwc-blue:          #0076A8;
-  --pwc-blue-light:    #E5F4FA;
-  --pwc-blue-mid:      #A8D9EF;
-  --pwc-blue-dk:       #00527A;
+  --pwc-gold:          #B45309;
+  --pwc-gold-light:    #FEF3C7;
+  --pwc-gold-mid:      #FCD34D;
+  --pwc-gold-dk:       #78350F;
 
-  --pwc-green:         #43B02A;
-  --pwc-green-light:   #EDFAE9;
-  --pwc-green-mid:     #BDEAB3;
-  --pwc-green-dk:      #287019;
+  --pwc-yellow:        #CA8A04;
+  --pwc-yellow-light:  #FEFCE8;
+  --pwc-yellow-mid:    #FEF08A;
+  --pwc-yellow-dk:     #713F12;
 
   /* Neutrals */
   --ink:   #1A1A24;
@@ -36,13 +36,13 @@
   --ink4:  #9A9AAA;
   --line:  #E5E5EF;
   --line2: #F2F2F7;
-  --bg:    #F8F8FC;
+  --bg:    #FFFAF5;
   --white: #FFFFFF;
 
-  /* Utilities */
+  /* Utilities — all mapped to warm tones */
   --amber-bg: #FFFBEB; --amber-dk: #92400E;
   --red-bg:   #FEF2F2; --red-dk:   #991B1B;
-  --sky-bg:   #F0F9FF; --sky-dk:   #0369A1;
+  --sky-bg:   #FFF7ED; --sky-dk:   #C2410C;
 
   --r: 12px; --r-sm: 8px;
   --font: 'Inter', system-ui, -apple-system, sans-serif;
@@ -60,13 +60,9 @@ body { font-family: var(--font); background: var(--bg); color: var(--ink); line-
   padding: 0 32px; height: 52px;
   display: flex; align-items: center; justify-content: space-between;
 }
-.topbar-logo { display: flex; align-items: center; gap: 10px; }
-.topbar-logo .pwc-mark {
-  width: 36px; height: 36px; background: var(--pwc-orange);
-  border-radius: 6px; display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 900; color: white; letter-spacing: -.5px;
-}
-.topbar-logo span { font-size: 13px; font-weight: 600; color: #ccc; letter-spacing: .02em; }
+.topbar-logo { display: flex; align-items: center; gap: 14px; }
+.topbar-logo img { height: 32px; width: auto; filter: brightness(0) invert(1); }
+.topbar-logo span { font-size: 13px; font-weight: 600; color: #ccc; letter-spacing: .02em; border-left: 1px solid rgba(255,255,255,.2); padding-left: 14px; }
 .topbar-title { font-size: 13px; font-weight: 600; color: white; }
 
 /* ── Sticky phase nav ── */
@@ -154,9 +150,14 @@ body { font-family: var(--font); background: var(--bg); color: var(--ink); line-
   cursor: pointer; user-select: none;
 }
 .sc-icon {
-  width: 40px; height: 40px; border-radius: 10px; background: var(--pc-light);
-  display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+  width: 40px; height: 40px; border-radius: 10px; background: var(--pc);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
+.sc-icon svg { width: 20px; height: 20px; stroke: white; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.callout .ci svg { width: 16px; height: 16px; flex-shrink: 0; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+.tip .ci svg  { stroke: #92400E; }
+.warn .ci svg { stroke: #991B1B; }
+.info .ci svg { stroke: #C2410C; }
 .sc-text { flex: 1; }
 .sc-text strong { display: block; font-size: 14px; font-weight: 700; line-height: 1.4; color: var(--ink); }
 .sc-meta { display: flex; align-items: center; gap: 8px; margin-top: 3px; flex-wrap: wrap; }
@@ -224,33 +225,34 @@ body { font-family: var(--font); background: var(--bg); color: var(--ink); line-
 /* ── Download block ── */
 .dl {
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  background: var(--pwc-blue-light); border: 1.5px solid var(--pwc-blue-mid);
+  background: var(--pwc-orange-light); border: 1.5px solid var(--pwc-orange-mid);
   border-radius: var(--r-sm); padding: 16px 20px;
 }
 .dl-info { display: flex; align-items: center; gap: 12px; }
-.dl-icon { font-size: 28px; }
+.dl-icon { width: 32px; height: 32px; flex-shrink: 0; color: var(--pwc-orange); }
 .dl-info strong { display: block; font-size: 13.5px; font-weight: 700; color: var(--ink); }
 .dl-info span { font-size: 12px; color: var(--ink3); margin-top: 2px; display: block; }
 .dl-btn {
-  background: var(--pwc-blue-dk); color: white; border: none; border-radius: var(--r-sm);
+  background: var(--pwc-orange); color: white; border: none; border-radius: var(--r-sm);
   padding: 10px 22px; font-size: 13px; font-weight: 700; font-family: var(--font);
   cursor: pointer; white-space: nowrap; transition: background .15s;
+  display: flex; align-items: center; gap: 8px;
 }
-.dl-btn:hover { background: #003F60; }
+.dl-btn:hover { background: var(--pwc-orange-dk); }
 
 /* ── Insights ── */
 .insights { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
 @media (max-width: 620px) { .insights { grid-template-columns: 1fr; } }
 .ins { background: var(--white); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; }
 .ins h4 { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid var(--line2); }
-.ins.w h4 { color: var(--pwc-green-dk); border-bottom-color: var(--pwc-green-mid); }
-.ins.t h4 { color: #991B1B; border-bottom-color: #FECACA; }
-.ins.n h4 { color: var(--pwc-blue-dk); border-bottom-color: var(--pwc-blue-mid); }
+.ins.w h4 { color: var(--pwc-orange-dk); border-bottom-color: var(--pwc-orange-mid); }
+.ins.t h4 { color: var(--pwc-gold-dk); border-bottom-color: var(--pwc-gold-mid); }
+.ins.n h4 { color: var(--pwc-amber-dk); border-bottom-color: var(--pwc-amber-mid); }
 .ins ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
 .ins ul li { font-size: 12.5px; color: var(--ink2); line-height: 1.55; padding-left: 20px; position: relative; }
-.ins.w li::before { content: '✓'; position: absolute; left: 0; color: var(--pwc-green); font-weight: 800; font-size: 12px; top: 1px; }
-.ins.t li::before { content: '!'; position: absolute; left: 3px; color: #EF4444; font-weight: 800; font-size: 12px; top: 1px; }
-.ins.n li::before { content: '→'; position: absolute; left: 0; color: var(--pwc-blue); font-size: 12px; top: 1px; }
+.ins.w li::before { content: '✓'; position: absolute; left: 0; color: var(--pwc-orange); font-weight: 800; font-size: 12px; top: 1px; }
+.ins.t li::before { content: '!'; position: absolute; left: 3px; color: var(--pwc-gold); font-weight: 800; font-size: 12px; top: 1px; }
+.ins.n li::before { content: '→'; position: absolute; left: 0; color: var(--pwc-amber); font-size: 12px; top: 1px; }
 
 /* ── Principles ── */
 .principles { margin-top: 64px; }
@@ -265,7 +267,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--ink); line-
 /* ── Footer ── */
 footer { margin-top: 60px; padding: 28px 0; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 footer .fl { display: flex; align-items: center; gap: 10px; }
-footer .pwc-mark { width: 30px; height: 30px; background: var(--pwc-orange); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; color: white; }
+footer .pwc-logo { height: 24px; width: auto; }
 footer p { font-size: 12px; color: var(--ink4); }
 </style>
 </head>
@@ -274,7 +276,7 @@ footer p { font-size: 12px; color: var(--ink4); }
 <!-- Top bar -->
 <div class="topbar">
   <div class="topbar-logo">
-    <div class="pwc-mark">PwC</div>
+    <img src="PwC_2025_Logo.svg.webp" alt="PwC">
     <span>PwC Canada · UX &amp; Service Design</span>
   </div>
   <div class="topbar-title">AI in the Design Process</div>
@@ -284,9 +286,9 @@ footer p { font-size: 12px; color: var(--ink4); }
 <div class="phase-nav">
   <div class="phase-nav-inner">
     <button class="ptab active" style="--pc:#E05A1B;" onclick="go('p1',this)"><span class="tn">1</span>Research &amp; Discovery</button>
-    <button class="ptab" style="--pc:#7B35A2;" onclick="go('p2',this)"><span class="tn">2</span>Brainstorming &amp; Ideation</button>
-    <button class="ptab" style="--pc:#0076A8;" onclick="go('p3',this)"><span class="tn">3</span>HiFi &amp; Prototyping</button>
-    <button class="ptab" style="--pc:#43B02A;" onclick="go('p4',this)"><span class="tn">4</span>QA &amp; Handoff</button>
+    <button class="ptab" style="--pc:#D97706;" onclick="go('p2',this)"><span class="tn">2</span>Brainstorming &amp; Ideation</button>
+    <button class="ptab" style="--pc:#B45309;" onclick="go('p3',this)"><span class="tn">3</span>HiFi &amp; Prototyping</button>
+    <button class="ptab" style="--pc:#CA8A04;" onclick="go('p4',this)"><span class="tn">4</span>QA &amp; Handoff</button>
   </div>
 </div>
 
@@ -332,12 +334,12 @@ footer p { font-size: 12px; color: var(--ink4); }
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">🎙️</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/></svg></div>
           <div class="sc-text">
             <strong>Transcribe interviews and meetings automatically</strong>
             <div class="sc-meta"><span class="by">Lisette · Holly · Sydney · Mi · Shikha · Loubna · Robyn</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
@@ -361,19 +363,19 @@ footer p { font-size: 12px; color: var(--ink4); }
               </div>
             </div>
           </div>
-          <div class="callout warn"><span class="ci">⚠</span><div><strong>Always QA the output.</strong> Transcripts drop words and mangle names. Cross-check every AI synthesis against your own notes or the recording before using it in a design decision.</div></div>
-          <div class="callout tip"><span class="ci">💡</span><div>Copilot conversations are subject to PwC data retention policies and may be deleted. Export and save anything important — don't treat Copilot as a permanent record.</div></div>
+          <div class="callout warn"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.29 3.86-8.19 14.2A2 2 0 0 0 3.81 21h16.38a2 2 0 0 0 1.71-3.01L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><div><strong>Always QA the output.</strong> Transcripts drop words and mangle names. Cross-check every AI synthesis against your own notes or the recording before using it in a design decision.</div></div>
+          <div class="callout tip"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span><div>Copilot conversations are subject to PwC data retention policies and may be deleted. Export and save anything important — don't treat Copilot as a permanent record.</div></div>
         </div></div>
       </div>
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">🧠</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 5 5 9c0 2 .8 3.8 2 5v3h10v-3c1.2-1.2 2-3 2-5 0-4-3-7-7-7z"/><path d="M9 17v1a3 3 0 0 0 6 0v-1"/><path d="M9 9h.01M15 9h.01M9 13c.8.6 1.5.9 3 .9s2.2-.3 3-.9"/></svg></div>
           <div class="sc-text">
             <strong>Synthesize transcripts into structured design insights</strong>
             <div class="sc-meta"><span class="by">Sydney · Shikha · Mi · Lisette · Holly · Robyn</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
@@ -422,18 +424,18 @@ Be specific. Cite which participant role said what. Format for Word.</pre>
               <button class="cpbtn" onclick="cp(this)">Copy</button>
             </div>
           </div>
-          <div class="callout warn"><span class="ci">⚠</span><div>AI flattens nuance. Never use synthesis output directly as a design brief — it's a starting point that needs your editorial judgment.</div></div>
+          <div class="callout warn"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.29 3.86-8.19 14.2A2 2 0 0 0 3.81 21h16.38a2 2 0 0 0 1.71-3.01L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><div>AI flattens nuance. Never use synthesis output directly as a design brief — it's a starting point that needs your editorial judgment.</div></div>
         </div></div>
       </div>
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">📂</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
           <div class="sc-text">
             <strong>Get up to speed on a new project from existing documentation</strong>
             <div class="sc-meta"><span class="by">Holly · Shikha · Loubna · Robyn</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
@@ -473,18 +475,18 @@ Cite the specific meeting, document, or deck behind each answer. If something is
               <button class="cpbtn" onclick="cp(this)">Copy</button>
             </div>
           </div>
-          <div class="callout tip"><span class="ci">💡</span><div><b>Shikha:</b> "Joined a project with years of meeting history. Ran Copilot through all transcripts and arrived at my first meeting already knowing what they'd been discussing for months."</div></div>
+          <div class="callout tip"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span><div><b>Shikha:</b> "Joined a project with years of meeting history. Ran Copilot through all transcripts and arrived at my first meeting already knowing what they'd been discussing for months."</div></div>
         </div></div>
       </div>
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">🤖</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M12 2v6M8 8V6a4 4 0 0 1 8 0v2"/><circle cx="9" cy="14" r="1.5" fill="white" stroke="none"/><circle cx="15" cy="14" r="1.5" fill="white" stroke="none"/><path d="M9 18h6"/></svg></div>
           <div class="sc-text">
             <strong>Build a Copilot onboarding agent for the project</strong>
             <div class="sc-meta"><span class="by">Loubna</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
@@ -563,12 +565,12 @@ What are the key user pain points we're solving for?</pre>
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">📊</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><path d="M2 20h20"/></svg></div>
           <div class="sc-text">
             <strong>Understand complex data before designing for it</strong>
             <div class="sc-meta"><span class="by">Shikha · Mi · Robyn</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
@@ -607,21 +609,21 @@ Are there any data quality issues, gaps, or anomalies I should design for?</pre>
               <button class="cpbtn" onclick="cp(this)">Copy</button>
             </div>
           </div>
-          <div class="callout tip"><span class="ci">💡</span><div><b>Robyn's tip:</b> For quantitative-heavy work, add "only surface statistically significant insights" and "cite the specific data points behind each conclusion" to keep outputs rigorous.</div></div>
+          <div class="callout tip"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span><div><b>Robyn's tip:</b> For quantitative-heavy work, add "only surface statistically significant insights" and "cite the specific data points behind each conclusion" to keep outputs rigorous.</div></div>
         </div></div>
       </div>
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">🔍</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
           <div class="sc-text">
             <strong>Define your research synthesis framework before you start</strong>
             <div class="sc-meta"><span class="badge-new">Recommended</span><span class="by">Run before every research phase</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
-          <div class="callout info"><span class="ci">ℹ</span><div>Without a defined structure, AI synthesis outputs are inconsistent across projects and designers. Running this step before research starts means every output looks the same, is easier to compare, and feeds directly into design work.</div></div>
+          <div class="callout info"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><div>Without a defined structure, AI synthesis outputs are inconsistent across projects and designers. Running this step before research starts means every output looks the same, is easier to compare, and feeds directly into design work.</div></div>
           <div>
             <div class="slabel">Steps to follow</div>
             <div class="howto">
@@ -682,7 +684,7 @@ Output a one-page framework document I can share with the team before research b
 
   <!-- ═══════════════ PHASE 2 ═══════════════ -->
   <div id="p2" class="panel"
-    style="--pc:#7B35A2;--pc-light:#F4EEFF;--pc-mid:#DDBFF8;--pc-dk:#55207A;">
+    style="--pc:#D97706;--pc-light:#FFFBEB;--pc-mid:#FDE68A;--pc-dk:#92400E;">
 
     <div class="ph">
       <div class="ph-badge">2</div>
@@ -701,12 +703,12 @@ Output a one-page framework document I can share with the team before research b
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">💡</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6M10 22h4"/></svg></div>
           <div class="sc-text">
             <strong>Frame design directions from research insights</strong>
             <div class="sc-meta"><span class="by">Shikha · Sydney</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
@@ -753,15 +755,15 @@ Make these genuinely different from each other — not variations on one theme.<
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">✍️</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></div>
           <div class="sc-text">
             <strong>Craft a constraint-aware prompt for Figma Make</strong>
             <div class="sc-meta"><span class="by">Shikha · Sydney · Loubna</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
-          <div class="callout info"><span class="ci">ℹ</span><div>An unconstrained prompt produces visually interesting but <b>technically unbuildable</b> outputs. Baking platform limits into the prompt before running it means every output is something you can actually ship.</div></div>
+          <div class="callout info"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><div>An unconstrained prompt produces visually interesting but <b>technically unbuildable</b> outputs. Baking platform limits into the prompt before running it means every output is something you can actually ship.</div></div>
           <div>
             <div class="slabel">Steps to follow</div>
             <div class="howto">
@@ -804,18 +806,18 @@ Write a Figma Make prompt that is specific enough to produce something useful, b
               <button class="cpbtn" onclick="cp(this)">Copy</button>
             </div>
           </div>
-          <div class="callout tip"><span class="ci">💡</span><div><b>Shikha's credit-saving technique:</b> Tell both ChatPwC and Figma Make to "use as few credits as possible and ask clarifying questions before executing anything." Keeps you in control, prevents wasted runs.</div></div>
+          <div class="callout tip"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span><div><b>Shikha's credit-saving technique:</b> Tell both ChatPwC and Figma Make to "use as few credits as possible and ask clarifying questions before executing anything." Keeps you in control, prevents wasted runs.</div></div>
         </div></div>
       </div>
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">🎨</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="13.5" r="2.5"/><path d="M17 17a4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4 4 4 0 0 1 4 4z"/></svg></div>
           <div class="sc-text">
             <strong>Generate multiple design directions with Figma Make</strong>
             <div class="sc-meta"><span class="by">Holly · Noah · Mi · Shikha · Loubna</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
@@ -839,21 +841,21 @@ Write a Figma Make prompt that is specific enough to produce something useful, b
               </div>
             </div>
           </div>
-          <div class="callout warn"><span class="ci">⚠</span><div>AI-generated directions often feel generic. They're a prompt for your own thinking — not a finished concept. Heavy designer curation is always required.</div></div>
+          <div class="callout warn"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.29 3.86-8.19 14.2A2 2 0 0 0 3.81 21h16.38a2 2 0 0 0 1.71-3.01L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><div>AI-generated directions often feel generic. They're a prompt for your own thinking — not a finished concept. Heavy designer curation is always required.</div></div>
         </div></div>
       </div>
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">⚖️</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 9l9-6 9 6M5 20h14"/><path d="m5 9-2 8h4zm14 0-2 8h4z"/></svg></div>
           <div class="sc-text">
             <strong>Evaluate and score design directions before stakeholder review</strong>
             <div class="sc-meta"><span class="badge-new">Recommended</span><span class="by">Before every stakeholder review</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
-          <div class="callout info"><span class="ci">ℹ</span><div>Going into a review with 3 equally valid directions puts the decision in the stakeholder's hands. This step gives you a structured rationale for your recommendation before the room decides by gut feel.</div></div>
+          <div class="callout info"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><div>Going into a review with 3 equally valid directions puts the decision in the stakeholder's hands. This step gives you a structured rationale for your recommendation before the room decides by gut feel.</div></div>
           <div>
             <div class="slabel">Steps to follow</div>
             <div class="howto">
@@ -900,15 +902,15 @@ Then give me a clear recommendation with a 2–3 sentence rationale for stakehol
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">🗂️</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M7 15h.01M12 15h.01M17 15h.01"/></svg></div>
           <div class="sc-text">
             <strong>Generate realistic mock data without exposing client information</strong>
             <div class="sc-meta"><span class="by">Shikha · Loubna</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
-          <div class="callout warn"><span class="ci">🔒</span><div><strong>Security:</strong> Never put actual client data into Figma Make. Copilot is more secure. Generate synthetic data in Copilot, then use it in Figma.</div></div>
+          <div class="callout warn"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><div><strong>Security:</strong> Never put actual client data into Figma Make. Copilot is more secure. Generate synthetic data in Copilot, then use it in Figma.</div></div>
           <div>
             <div class="slabel">Steps to follow</div>
             <div class="howto">
@@ -975,7 +977,7 @@ Output as a table I can paste directly into Excel.</pre>
 
   <!-- ═══════════════ PHASE 3 ═══════════════ -->
   <div id="p3" class="panel"
-    style="--pc:#0076A8;--pc-light:#E5F4FA;--pc-mid:#A8D9EF;--pc-dk:#00527A;">
+    style="--pc:#B45309;--pc-light:#FEF3C7;--pc-mid:#FCD34D;--pc-dk:#78350F;">
 
     <div class="ph">
       <div class="ph-badge">3</div>
@@ -997,15 +999,15 @@ Output as a table I can paste directly into Excel.</pre>
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">🔗</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
           <div class="sc-text">
             <strong>Connect Claude to the Appkit design system — do this first</strong>
             <div class="sc-meta"><span class="badge-new">Do at project start</span><span class="by">Lisette · Mi</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
-          <div class="callout info"><span class="ci">ℹ</span><div>If Claude is connected to Appkit before you start, every screen it generates uses the correct components automatically — zero manual replacement. Do this at the start of every project.</div></div>
+          <div class="callout info"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><div>If Claude is connected to Appkit before you start, every screen it generates uses the correct components automatically — zero manual replacement. Do this at the start of every project.</div></div>
           <div>
             <div class="slabel">Steps to follow</div>
             <div class="howto">
@@ -1027,18 +1029,18 @@ Output as a table I can paste directly into Excel.</pre>
               </div>
             </div>
           </div>
-          <div class="callout tip"><span class="ci">💡</span><div><b>Lisette:</b> "Connecting Claude to Appkit means you can generate new screens entirely through Claude — no need to manually recreate Figma screens. The output is already design-system-compliant."</div></div>
+          <div class="callout tip"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span><div><b>Lisette:</b> "Connecting Claude to Appkit means you can generate new screens entirely through Claude — no need to manually recreate Figma screens. The output is already design-system-compliant."</div></div>
         </div></div>
       </div>
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">🖼️</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
           <div class="sc-text">
             <strong>Generate design solutions within platform limits using Figma Make</strong>
             <div class="sc-meta"><span class="by">Lisette · Mi · Shikha · Noah · Loubna</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
@@ -1067,12 +1069,12 @@ Output as a table I can paste directly into Excel.</pre>
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">📝</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg></div>
           <div class="sc-text">
             <strong>Auto-populate designs with realistic content and data</strong>
             <div class="sc-meta"><span class="by">Shikha · Loubna</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
@@ -1127,12 +1129,12 @@ Output as a table I can paste directly into Excel.</pre>
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">⚡</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
           <div class="sc-text">
             <strong>Claude Code + Figma MCP — build a working interactive prototype</strong>
             <div class="sc-meta"><span class="by">Lisette · Mi · Noah · Loubna</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
@@ -1178,21 +1180,21 @@ Ask me any clarifying questions before you start building.</pre>
               <button class="cpbtn" onclick="cp(this)">Copy</button>
             </div>
           </div>
-          <div class="callout tip"><span class="ci">💡</span><div><b>Lisette:</b> "Using Figma MCP and Claude Code in tandem reduces prompting significantly. You spend more time reviewing and less time describing."</div></div>
+          <div class="callout tip"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span><div><b>Lisette:</b> "Using Figma MCP and Claude Code in tandem reduces prompting significantly. You spend more time reviewing and less time describing."</div></div>
         </div></div>
       </div>
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">☑️</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
           <div class="sc-text">
             <strong>Cross-check your design against the original requirements</strong>
             <div class="sc-meta"><span class="badge-new">Recommended</span><span class="by">Before every stakeholder design review</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
-          <div class="callout info"><span class="ci">ℹ</span><div>It's easy to drift from original requirements when iterating with AI. This step catches gaps before stakeholders do — so you're not walking into a review with a design that misses a must-have feature.</div></div>
+          <div class="callout info"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><div>It's easy to drift from original requirements when iterating with AI. This step catches gaps before stakeholders do — so you're not walking into a review with a design that misses a must-have feature.</div></div>
           <div>
             <div class="slabel">Steps to follow</div>
             <div class="howto">
@@ -1237,12 +1239,12 @@ Format as a table: Requirement | Status (Addressed / Partial / Missing) | Eviden
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">🗺️</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg></div>
           <div class="sc-text">
             <strong>Create journey maps and service blueprints from project insights</strong>
             <div class="sc-meta"><span class="by">Sydney · Robyn</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
@@ -1312,7 +1314,7 @@ Format as a table with phases as columns. Draw from the actual project insights 
 
   <!-- ═══════════════ PHASE 4 ═══════════════ -->
   <div id="p4" class="panel"
-    style="--pc:#43B02A;--pc-light:#EDFAE9;--pc-mid:#BDEAB3;--pc-dk:#287019;">
+    style="--pc:#CA8A04;--pc-light:#FEFCE8;--pc-mid:#FEF08A;--pc-dk:#713F12;">
 
     <div class="ph">
       <div class="ph-badge">4</div>
@@ -1333,12 +1335,12 @@ Format as a table with phases as columns. Draw from the actual project insights 
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">🧹</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M3 21l1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"/></svg></div>
           <div class="sc-text">
             <strong>Run the file hygiene Figma skill — clean layers, spacing &amp; naming</strong>
             <div class="sc-meta"><span class="by">Loubna · Noah</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
@@ -1403,18 +1405,18 @@ End with a cleanup report: pages modified / spacing system used / layers deleted
               </div>
             </div>
           </div>
-          <div class="callout warn"><span class="ci">⚠</span><div>Supervise this skill — it can occasionally remove intentional hidden layers. Always review the "Cleanup – Review" page before confirming deletions.</div></div>
+          <div class="callout warn"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.29 3.86-8.19 14.2A2 2 0 0 0 3.81 21h16.38a2 2 0 0 0 1.71-3.01L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><div>Supervise this skill — it can occasionally remove intentional hidden layers. Always review the "Cleanup – Review" page before confirming deletions.</div></div>
         </div></div>
       </div>
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">✅</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
           <div class="sc-text">
             <strong>Run the brand compliance Figma skill — check &amp; auto-fix</strong>
             <div class="sc-meta"><span class="by">Loubna</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
@@ -1436,13 +1438,13 @@ End with a cleanup report: pages modified / spacing system used / layers deleted
           </div>
           <div class="dl">
             <div class="dl-info">
-              <div class="dl-icon">📄</div>
+              <div class="dl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
               <div>
                 <strong>PwC brand compliance SKILL.md</strong>
                 <span>Ready-to-import Figma skill — includes PwC design system link</span>
               </div>
             </div>
-            <button class="dl-btn" onclick="dlSkill()">↓ Download</button>
+            <button class="dl-btn" onclick="dlSkill()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download</button>
           </div>
           <div class="prompt-wrap">
             <div class="prompt-lbl">Skill instruction — or paste directly into Figma</div>
@@ -1476,18 +1478,18 @@ End with a cleanup report: pages modified / spacing system used / layers deleted
               </div>
             </div>
           </div>
-          <div class="callout warn"><span class="ci">⚠</span><div>The skill occasionally misses issues on the first pass. Always run it, review manually, then prompt it again to address anything missed.</div></div>
+          <div class="callout warn"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.29 3.86-8.19 14.2A2 2 0 0 0 3.81 21h16.38a2 2 0 0 0 1.71-3.01L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><div>The skill occasionally misses issues on the first pass. Always run it, review manually, then prompt it again to address anything missed.</div></div>
         </div></div>
       </div>
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">🐛</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M8 2l1.88 1.88M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6z"/><path d="M12 20v-9M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 4-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17 17c2.3.1 4 1.9 4 4"/></svg></div>
           <div class="sc-text">
             <strong>Find and fix bugs &amp; accessibility issues with Claude Code</strong>
             <div class="sc-meta"><span class="by">Lisette · Mi</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
@@ -1539,15 +1541,15 @@ After fixing, summarize: what you found, what you fixed, and anything that needs
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">📐</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><polygon points="2 2 22 2 22 22"/><line x1="2" y1="2" x2="22" y2="22"/><path d="M7 2v5M2 7h5"/></svg></div>
           <div class="sc-text">
             <strong>Generate developer-ready annotations and specs</strong>
             <div class="sc-meta"><span class="badge-new">Recommended</span><span class="by">Before every dev handoff</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
-          <div class="callout info"><span class="ci">ℹ</span><div>Developers shouldn't need to guess at spacing, states, or interaction logic. Generating specs from the working prototype means annotations are accurate — not aspirational estimates made before it was built.</div></div>
+          <div class="callout info"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><div>Developers shouldn't need to guess at spacing, states, or interaction logic. Generating specs from the working prototype means annotations are accurate — not aspirational estimates made before it was built.</div></div>
           <div>
             <div class="slabel">Steps to follow</div>
             <div class="howto">
@@ -1592,12 +1594,12 @@ Format as a markdown document the dev team can reference during implementation.<
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">📋</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="15" y2="16"/></svg></div>
           <div class="sc-text">
             <strong>Extract prioritized feedback from review sessions via Copilot</strong>
             <div class="sc-meta"><span class="by">Shikha · Loubna</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
@@ -1633,21 +1635,21 @@ Cite who said what where it matters. Format as a clear action list I can work fr
               <button class="cpbtn" onclick="cp(this)">Copy</button>
             </div>
           </div>
-          <div class="callout tip"><span class="ci">💡</span><div>This creates a more complete record than manual note-taking. Focus entirely on the conversation during the review instead of writing while listening.</div></div>
+          <div class="callout tip"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span><div>This creates a more complete record than manual note-taking. Focus entirely on the conversation during the review instead of writing while listening.</div></div>
         </div></div>
       </div>
 
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">📓</div>
+          <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
           <div class="sc-text">
             <strong>Write a design decision log before you close the project</strong>
             <div class="sc-meta"><span class="badge-new">Recommended</span><span class="by">At project close</span></div>
           </div>
-          <div class="sc-toggle">▼</div>
+          <div class="sc-toggle"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg></div>
         </div>
         <div class="sc-body"><div class="sc-inner">
-          <div class="callout info"><span class="ci">ℹ</span><div>Six months after launch, nobody remembers why a decision was made. A decision log means future designers understand the reasoning behind every significant choice, and don't undo good work by accident.</div></div>
+          <div class="callout info"><span class="ci"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><div>Six months after launch, nobody remembers why a decision was made. A decision log means future designers understand the reasoning behind every significant choice, and don't undo good work by accident.</div></div>
           <div>
             <div class="slabel">Steps to follow</div>
             <div class="howto">
@@ -1721,7 +1723,7 @@ Focus on decisions that are non-obvious or where a future designer might be temp
 
   <footer>
     <div class="fl">
-      <div class="pwc-mark">PwC</div>
+      <img src="PwC_2025_Logo.svg.webp" alt="PwC" class="pwc-logo">
       <p>PwC Canada · UX &amp; Service Design</p>
     </div>
     <p>Lisette · Holly · Sydney · Mi · Noah · Shikha · Loubna · Robyn · 2026</p>
