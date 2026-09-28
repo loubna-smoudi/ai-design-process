@@ -8,243 +8,318 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --c1: #5AD8CC; --c1-bg: #f0fdfb; --c1-mid: #C6FAF6; --c1-dk: #1a8a83;
-  --c2: #874FFF; --c2-bg: #f5f0ff; --c2-mid: #DCCCFF; --c2-dk: #5429cc;
-  --c3: #3DADFF; --c3-bg: #f0f8ff; --c3-mid: #C2E5FF; --c3-dk: #0071c2;
-  --c4: #4CAF82; --c4-bg: #f0faf5; --c4-mid: #C3EDD6; --c4-dk: #2e7d54;
-  --amber: #F59E0B; --amber-bg: #fffbeb; --amber-dk: #92400e;
-  --red: #EF4444;  --red-bg: #fef2f2;  --red-dk: #991b1b;
-  --sky: #0EA5E9;  --sky-bg: #f0f9ff;  --sky-dk: #0369a1;
-  --ink: #111827; --ink2: #374151; --ink3: #6B7280; --ink4: #9CA3AF;
-  --line: #E5E7EB; --line2: #F3F4F6; --bg: #F9FAFB; --white: #ffffff;
+  /* PwC Brand Colours */
+  --pwc-orange:        #E05A1B;
+  --pwc-orange-light:  #FEF0E8;
+  --pwc-orange-mid:    #FBCFB3;
+  --pwc-orange-dk:     #A63A07;
+
+  --pwc-purple:        #7B35A2;
+  --pwc-purple-light:  #F4EEFF;
+  --pwc-purple-mid:    #DDBFF8;
+  --pwc-purple-dk:     #55207A;
+
+  --pwc-blue:          #0076A8;
+  --pwc-blue-light:    #E5F4FA;
+  --pwc-blue-mid:      #A8D9EF;
+  --pwc-blue-dk:       #00527A;
+
+  --pwc-green:         #43B02A;
+  --pwc-green-light:   #EDFAE9;
+  --pwc-green-mid:     #BDEAB3;
+  --pwc-green-dk:      #287019;
+
+  /* Neutrals */
+  --ink:   #1A1A24;
+  --ink2:  #3C3C46;
+  --ink3:  #6B6B7B;
+  --ink4:  #9A9AAA;
+  --line:  #E5E5EF;
+  --line2: #F2F2F7;
+  --bg:    #F8F8FC;
+  --white: #FFFFFF;
+
+  /* Utilities */
+  --amber-bg: #FFFBEB; --amber-dk: #92400E;
+  --red-bg:   #FEF2F2; --red-dk:   #991B1B;
+  --sky-bg:   #F0F9FF; --sky-dk:   #0369A1;
+
   --r: 12px; --r-sm: 8px;
   --font: 'Inter', system-ui, -apple-system, sans-serif;
-  --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --mono: 'SF Mono', 'Fira Code', monospace;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,.06);
+  --shadow:    0 2px 12px rgba(0,0,0,.08);
 }
 
 html { scroll-behavior: smooth; }
 body { font-family: var(--font); background: var(--bg); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
-/* ─── Sticky nav wrapper ─── */
-.sticky-nav {
+/* ── Top bar ── */
+.topbar {
+  background: var(--ink); color: white;
+  padding: 0 32px; height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.topbar-logo { display: flex; align-items: center; gap: 10px; }
+.topbar-logo .pwc-mark {
+  width: 36px; height: 36px; background: var(--pwc-orange);
+  border-radius: 6px; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 900; color: white; letter-spacing: -.5px;
+}
+.topbar-logo span { font-size: 13px; font-weight: 600; color: #ccc; letter-spacing: .02em; }
+.topbar-title { font-size: 13px; font-weight: 600; color: white; }
+
+/* ── Sticky phase nav ── */
+.phase-nav {
   position: sticky; top: 0; z-index: 100;
-  background: rgba(249,250,251,.92); backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line);
+  background: rgba(255,255,255,.95); backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--line);
 }
-.sticky-inner { max-width: 980px; margin: 0 auto; padding: 10px 24px; display: flex; gap: 6px; align-items: center; }
-.site-label { font-size: 11px; font-weight: 700; color: var(--ink4); letter-spacing: .08em; text-transform: uppercase; margin-right: 12px; white-space: nowrap; }
-.phase-tabs { display: flex; gap: 5px; flex-wrap: wrap; }
-.tab {
-  display: flex; align-items: center; gap: 7px; padding: 7px 14px;
-  border-radius: 8px; border: 1.5px solid transparent;
-  background: transparent; cursor: pointer; font-family: var(--font);
-  font-size: 12.5px; font-weight: 600; color: var(--ink3);
-  transition: all .15s; white-space: nowrap;
+.phase-nav-inner {
+  max-width: 1020px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: stretch; gap: 2px;
 }
-.tab:hover { background: var(--white); border-color: var(--line); color: var(--ink); }
-.tab.active { background: var(--pc); border-color: var(--pc); color: white; }
-.tab .tn { width: 20px; height: 20px; border-radius: 50%; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.tab:not(.active) .tn { background: var(--line2); color: var(--ink3); }
-.tab.active .tn { background: rgba(255,255,255,.3); color: white; }
+.ptab {
+  display: flex; align-items: center; gap: 9px; padding: 14px 20px;
+  border-bottom: 3px solid transparent; margin-bottom: -2px;
+  background: none; border-top: none; border-left: none; border-right: none;
+  cursor: pointer; font-family: var(--font); font-size: 13px; font-weight: 600;
+  color: var(--ink3); transition: all .15s; white-space: nowrap;
+}
+.ptab:hover { color: var(--ink); border-bottom-color: var(--line); }
+.ptab.active { color: var(--pc); border-bottom-color: var(--pc); }
+.ptab .tn {
+  width: 22px; height: 22px; border-radius: 50%; font-size: 10px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  background: var(--line2); color: var(--ink3); transition: all .15s;
+}
+.ptab.active .tn { background: var(--pc); color: white; }
 
-/* ─── Page layout ─── */
-.page { max-width: 980px; margin: 0 auto; padding: 56px 24px 100px; }
+/* ── Page ── */
+.page { max-width: 1020px; margin: 0 auto; padding: 52px 24px 100px; }
 
-/* ─── Header ─── */
-.hdr { text-align: center; margin-bottom: 64px; }
-.hdr-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink4); margin-bottom: 14px; }
-.hdr h1 { font-size: clamp(28px, 5vw, 48px); font-weight: 800; letter-spacing: -.035em; line-height: 1.1; margin-bottom: 16px; }
-.hdr h1 span { background: linear-gradient(135deg,#874FFF,#3DADFF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.hdr-sub { font-size: 16px; color: var(--ink3); max-width: 580px; margin: 0 auto 28px; line-height: 1.7; }
-.team { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
-.team span { background: var(--white); border: 1px solid var(--line); border-radius: 20px; padding: 4px 13px; font-size: 12px; color: var(--ink3); }
+/* ── Hero ── */
+.hero { margin-bottom: 60px; }
+.hero-inner {
+  background: var(--ink); border-radius: 20px; padding: 48px 52px;
+  display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
+}
+@media (max-width: 680px) { .hero-inner { grid-template-columns: 1fr; padding: 32px 28px; } }
+.hero-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--pwc-orange); margin-bottom: 14px; }
+.hero h1 { font-size: clamp(26px, 4vw, 40px); font-weight: 800; letter-spacing: -.03em; color: white; line-height: 1.15; margin-bottom: 16px; }
+.hero h1 em { font-style: normal; color: var(--pwc-orange); }
+.hero-sub { font-size: 15px; color: #9CA3AF; line-height: 1.7; max-width: 480px; }
+.hero-team { text-align: right; }
+.hero-team p { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #6B7280; margin-bottom: 10px; }
+.team-list { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+.team-list span { font-size: 12.5px; color: #D1D5DB; }
 
-/* ─── Flow indicator ─── */
-.flow-bar { display: flex; align-items: center; margin-bottom: 40px; gap: 0; }
-.flow-phase { flex: 1; text-align: center; padding: 12px 8px; border-radius: var(--r); cursor: pointer; transition: all .15s; }
-.flow-phase:hover { background: var(--white); }
-.flow-phase .fp-num { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
-.flow-phase .fp-title { font-size: 12px; font-weight: 600; }
-.flow-arrow { color: var(--ink4); font-size: 14px; padding: 0 4px; flex-shrink: 0; }
-
-/* ─── Phase panel ─── */
+/* ── Phase panels ── */
 .panel { display: none; }
 .panel.active { display: block; }
 
-/* ─── Phase header ─── */
-.ph-head {
-  background: var(--pc-bg); border: 1.5px solid var(--pc-mid);
-  border-radius: var(--r); padding: 28px 32px; margin-bottom: 24px;
-  display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: start;
+/* ── Phase header ── */
+.ph {
+  background: var(--white); border: 1.5px solid var(--pc-mid);
+  border-left: 5px solid var(--pc); border-radius: var(--r);
+  padding: 28px 32px; margin-bottom: 32px;
+  display: flex; align-items: flex-start; gap: 24px;
 }
-.ph-num { font-size: 56px; font-weight: 800; line-height: 1; color: var(--pc); opacity: .2; padding-top: 2px; }
-.ph-info h2 { font-size: 22px; font-weight: 800; letter-spacing: -.025em; margin-bottom: 6px; }
-.ph-info .ph-desc { font-size: 14px; color: var(--ink3); margin-bottom: 14px; line-height: 1.6; max-width: 600px; }
+.ph-badge {
+  width: 52px; height: 52px; border-radius: var(--r-sm);
+  background: var(--pc); display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 900; color: white; flex-shrink: 0;
+}
+.ph-text h2 { font-size: 22px; font-weight: 800; letter-spacing: -.025em; margin-bottom: 5px; }
+.ph-text p { font-size: 14px; color: var(--ink3); margin-bottom: 14px; line-height: 1.65; max-width: 600px; }
 .tool-row { display: flex; flex-wrap: wrap; gap: 6px; }
-.tool { font-size: 11px; font-weight: 600; padding: 4px 11px; border-radius: 20px; background: var(--pc); color: white; }
+.tool {
+  font-size: 11px; font-weight: 700; padding: 4px 11px; border-radius: 20px;
+  background: var(--pc-light); color: var(--pc-dk); border: 1px solid var(--pc-mid);
+}
 
-/* ─── Steps ─── */
-.steps { display: flex; flex-direction: column; gap: 6px; margin-bottom: 28px; }
+/* ── Steps ── */
+.steps { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
 
-.sc { background: var(--white); border: 1.5px solid var(--line); border-radius: var(--r); overflow: hidden; transition: border-color .15s, box-shadow .15s; }
-.sc:hover { border-color: var(--pc-mid); box-shadow: 0 2px 12px rgba(0,0,0,.05); }
-.sc.open { border-color: var(--pc); box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+.sc {
+  background: var(--white); border: 1.5px solid var(--line);
+  border-radius: var(--r); overflow: hidden;
+  box-shadow: var(--shadow-sm); transition: border-color .15s, box-shadow .15s;
+}
+.sc:hover { border-color: var(--pc-mid); box-shadow: var(--shadow); }
+.sc.open { border-color: var(--pc); border-left: 4px solid var(--pc); box-shadow: var(--shadow); }
 
-.sc-head { display: flex; align-items: center; gap: 14px; padding: 16px 20px; cursor: pointer; user-select: none; }
-.sc-icon { width: 38px; height: 38px; border-radius: 10px; background: var(--pc-bg); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-.sc-title { flex: 1; }
-.sc-title strong { display: block; font-size: 14px; font-weight: 700; line-height: 1.35; }
+.sc-head {
+  display: flex; align-items: center; gap: 14px; padding: 17px 20px;
+  cursor: pointer; user-select: none;
+}
+.sc-icon {
+  width: 40px; height: 40px; border-radius: 10px; background: var(--pc-light);
+  display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+}
+.sc-text { flex: 1; }
+.sc-text strong { display: block; font-size: 14px; font-weight: 700; line-height: 1.4; color: var(--ink); }
 .sc-meta { display: flex; align-items: center; gap: 8px; margin-top: 3px; flex-wrap: wrap; }
 .by { font-size: 11px; color: var(--ink4); }
-.badge-new { font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; background: var(--pc); color: white; padding: 2px 7px; border-radius: 10px; }
-.sc-chevron { font-size: 10px; color: var(--ink4); transition: transform .2s; flex-shrink: 0; padding: 4px; }
-.sc.open .sc-chevron { transform: rotate(180deg); }
+.badge-new {
+  font-size: 9px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+  background: var(--pc); color: white; padding: 2px 8px; border-radius: 10px;
+}
+.sc-toggle {
+  width: 28px; height: 28px; border-radius: 50%; background: var(--line2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: var(--ink4); flex-shrink: 0; transition: all .2s;
+}
+.sc.open .sc-toggle { background: var(--pc-light); color: var(--pc-dk); transform: rotate(180deg); }
 
 .sc-body { display: none; border-top: 1px solid var(--line); }
 .sc.open .sc-body { display: block; }
-.sc-inner { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 20px; }
+.sc-inner { padding: 24px 24px 28px; display: flex; flex-direction: column; gap: 22px; }
 
-/* ─── Section within a step ─── */
-.sec-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink4); margin-bottom: 10px; }
-
-/* ─── Numbered how-to list ─── */
-.how { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-.how li { display: flex; gap: 11px; font-size: 13.5px; color: var(--ink2); line-height: 1.6; }
-.how li .n {
-  min-width: 24px; height: 24px; border-radius: 50%;
-  background: var(--pc-bg); color: var(--pc-dk);
-  font-size: 11px; font-weight: 700;
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+/* ── Section label ── */
+.slabel {
+  font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink4); margin-bottom: 12px;
 }
 
-/* ─── Prompt block ─── */
-.prompt-wrap { position: relative; }
-.prompt-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink4); margin-bottom: 6px; }
-.prompt {
-  background: #1C1C27; border-radius: var(--r-sm); padding: 16px 18px; padding-right: 76px;
-  font-family: var(--mono); font-size: 12px; color: #C8D3F5; line-height: 1.7;
-  white-space: pre-wrap; word-break: break-word;
+/* ── Numbered steps — the clear version ── */
+.howto { display: flex; flex-direction: column; }
+.howto-step { display: flex; gap: 0; }
+.howto-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 40px; }
+.howto-num {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--pc); color: white;
+  font-size: 12px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
+.howto-note .howto-num { background: var(--line2); color: var(--ink3); }
+.howto-line { width: 2px; background: var(--pc-mid); flex: 1; min-height: 12px; margin: 3px 0; }
+.howto-step:last-child .howto-line { display: none; }
+.howto-content { padding: 4px 0 18px 14px; flex: 1; font-size: 13.5px; color: var(--ink2); line-height: 1.65; }
+.howto-content b { font-weight: 700; color: var(--ink); }
+.howto-step:last-child .howto-content { padding-bottom: 4px; }
+
+/* ── Prompt block ── */
+.prompt-wrap { display: flex; flex-direction: column; gap: 6px; }
+.prompt-lbl { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ink4); }
+.prompt-box { background: #13131E; border-radius: var(--r-sm); padding: 18px 20px; position: relative; padding-right: 90px; }
+.prompt-box pre { font-family: var(--mono); font-size: 12px; color: #C8D3F5; line-height: 1.75; white-space: pre-wrap; word-break: break-word; }
 .cpbtn {
-  position: absolute; top: 10px; right: 10px;
-  background: rgba(255,255,255,.1); border: none; border-radius: 6px;
-  padding: 4px 10px; font-size: 11px; font-weight: 600; color: #8FA3D4;
-  cursor: pointer; font-family: var(--font); transition: all .15s;
+  position: absolute; top: 12px; right: 12px;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 6px; padding: 5px 12px; font-size: 11px; font-weight: 700;
+  color: #8FA3D4; cursor: pointer; font-family: var(--font); transition: all .15s;
 }
-.cpbtn:hover { background: rgba(255,255,255,.18); color: white; }
-.cpbtn.ok { background: var(--c4); color: white; }
+.cpbtn:hover { background: rgba(255,255,255,.15); color: white; }
+.cpbtn.ok { background: #43B02A; border-color: #43B02A; color: white; }
 
-/* ─── Callouts ─── */
-.callout { display: flex; gap: 10px; padding: 12px 16px; border-radius: var(--r-sm); font-size: 13px; line-height: 1.6; }
-.callout .ci { flex-shrink: 0; margin-top: 1px; font-size: 15px; }
-.callout.tip  { background: var(--amber-bg); color: var(--amber-dk); border-left: 3px solid var(--amber); }
-.callout.warn { background: var(--red-bg);   color: var(--red-dk);   border-left: 3px solid var(--red); }
-.callout.info { background: var(--sky-bg);   color: var(--sky-dk);   border-left: 3px solid var(--sky); }
+/* ── Callouts ── */
+.callout { display: flex; gap: 12px; padding: 14px 16px; border-radius: var(--r-sm); font-size: 13px; line-height: 1.65; }
+.callout .ci { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
+.callout strong { font-weight: 700; }
+.tip  { background: var(--amber-bg); color: var(--amber-dk); border-left: 3px solid #F59E0B; }
+.warn { background: var(--red-bg);   color: var(--red-dk);   border-left: 3px solid #EF4444; }
+.info { background: var(--sky-bg);   color: var(--sky-dk);   border-left: 3px solid #0EA5E9; }
 
-/* ─── Download block ─── */
-.dl-block {
+/* ── Download block ── */
+.dl {
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  background: var(--sky-bg); border: 1.5px solid #BAE6FD; border-radius: var(--r-sm); padding: 14px 18px;
+  background: var(--pwc-blue-light); border: 1.5px solid var(--pwc-blue-mid);
+  border-radius: var(--r-sm); padding: 16px 20px;
 }
 .dl-info { display: flex; align-items: center; gap: 12px; }
-.dl-icon { font-size: 26px; }
-.dl-info strong { display: block; font-size: 13px; font-weight: 700; color: var(--ink); }
-.dl-info span { font-size: 12px; color: var(--ink3); }
+.dl-icon { font-size: 28px; }
+.dl-info strong { display: block; font-size: 13.5px; font-weight: 700; color: var(--ink); }
+.dl-info span { font-size: 12px; color: var(--ink3); margin-top: 2px; display: block; }
 .dl-btn {
-  background: var(--sky-dk); color: white; border: none; border-radius: var(--r-sm);
-  padding: 9px 20px; font-size: 12.5px; font-weight: 700; font-family: var(--font);
+  background: var(--pwc-blue-dk); color: white; border: none; border-radius: var(--r-sm);
+  padding: 10px 22px; font-size: 13px; font-weight: 700; font-family: var(--font);
   cursor: pointer; white-space: nowrap; transition: background .15s;
 }
-.dl-btn:hover { background: #025fa3; }
+.dl-btn:hover { background: #003F60; }
 
-/* ─── Insights grid ─── */
-.insights { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+/* ── Insights ── */
+.insights { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
 @media (max-width: 620px) { .insights { grid-template-columns: 1fr; } }
-.ins { background: var(--white); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 20px; }
-.ins h4 { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; }
-.ins.w h4 { color: var(--c4-dk); }
-.ins.t h4 { color: var(--red-dk); }
-.ins.n h4 { color: var(--c3-dk); }
-.ins ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.ins ul li { font-size: 12.5px; color: var(--ink2); line-height: 1.5; padding-left: 18px; position: relative; }
-.ins.w li::before { content: '✓'; position: absolute; left: 0; color: var(--c4); font-weight: 800; font-size: 11px; top: 3px; }
-.ins.t li::before { content: '!'; position: absolute; left: 2px; color: var(--red); font-weight: 800; font-size: 11px; top: 3px; }
-.ins.n li::before { content: '→'; position: absolute; left: 0; color: var(--c3); font-size: 12px; top: 3px; }
+.ins { background: var(--white); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; }
+.ins h4 { font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid var(--line2); }
+.ins.w h4 { color: var(--pwc-green-dk); border-bottom-color: var(--pwc-green-mid); }
+.ins.t h4 { color: #991B1B; border-bottom-color: #FECACA; }
+.ins.n h4 { color: var(--pwc-blue-dk); border-bottom-color: var(--pwc-blue-mid); }
+.ins ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.ins ul li { font-size: 12.5px; color: var(--ink2); line-height: 1.55; padding-left: 20px; position: relative; }
+.ins.w li::before { content: '✓'; position: absolute; left: 0; color: var(--pwc-green); font-weight: 800; font-size: 12px; top: 1px; }
+.ins.t li::before { content: '!'; position: absolute; left: 3px; color: #EF4444; font-weight: 800; font-size: 12px; top: 1px; }
+.ins.n li::before { content: '→'; position: absolute; left: 0; color: var(--pwc-blue); font-size: 12px; top: 1px; }
 
-/* ─── Principles ─── */
-.principles { margin-top: 60px; }
-.sec-title { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink4); text-align: center; margin-bottom: 20px; }
-.pr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px,1fr)); gap: 12px; }
-.pr { background: var(--white); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; }
-.pr .pn { font-size: 34px; font-weight: 800; color: var(--line2); line-height: 1; margin-bottom: 10px; }
+/* ── Principles ── */
+.principles { margin-top: 64px; }
+.sec-title { font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--ink4); text-align: center; margin-bottom: 24px; }
+.pr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px,1fr)); gap: 14px; }
+.pr { background: var(--white); border: 1px solid var(--line); border-radius: var(--r); padding: 24px; position: relative; overflow: hidden; }
+.pr::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--pwc-orange); }
+.pr .pn { font-size: 36px; font-weight: 900; color: var(--line2); line-height: 1; margin-bottom: 10px; }
 .pr strong { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
 .pr p { font-size: 12.5px; color: var(--ink3); line-height: 1.65; }
 
-/* ─── Footer ─── */
-footer { text-align: center; margin-top: 60px; font-size: 11.5px; color: var(--ink4); }
+/* ── Footer ── */
+footer { margin-top: 60px; padding: 28px 0; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+footer .fl { display: flex; align-items: center; gap: 10px; }
+footer .pwc-mark { width: 30px; height: 30px; background: var(--pwc-orange); border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; color: white; }
+footer p { font-size: 12px; color: var(--ink4); }
 </style>
 </head>
 <body>
 
-<!-- Sticky phase nav -->
-<div class="sticky-nav">
-  <div class="sticky-inner">
-    <span class="site-label">AI in Design</span>
-    <div class="phase-tabs">
-      <button class="tab active" style="--pc:#5AD8CC;" onclick="go('p1',this)"><span class="tn">1</span>Research</button>
-      <button class="tab" style="--pc:#874FFF;" onclick="go('p2',this)"><span class="tn">2</span>Ideation</button>
-      <button class="tab" style="--pc:#3DADFF;" onclick="go('p3',this)"><span class="tn">3</span>HiFi &amp; Proto</button>
-      <button class="tab" style="--pc:#4CAF82;" onclick="go('p4',this)"><span class="tn">4</span>QA &amp; Handoff</button>
-    </div>
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-logo">
+    <div class="pwc-mark">PwC</div>
+    <span>PwC Canada · UX &amp; Service Design</span>
+  </div>
+  <div class="topbar-title">AI in the Design Process</div>
+</div>
+
+<!-- Phase nav -->
+<div class="phase-nav">
+  <div class="phase-nav-inner">
+    <button class="ptab active" style="--pc:#E05A1B;" onclick="go('p1',this)"><span class="tn">1</span>Research &amp; Discovery</button>
+    <button class="ptab" style="--pc:#7B35A2;" onclick="go('p2',this)"><span class="tn">2</span>Brainstorming &amp; Ideation</button>
+    <button class="ptab" style="--pc:#0076A8;" onclick="go('p3',this)"><span class="tn">3</span>HiFi &amp; Prototyping</button>
+    <button class="ptab" style="--pc:#43B02A;" onclick="go('p4',this)"><span class="tn">4</span>QA &amp; Handoff</button>
   </div>
 </div>
 
 <div class="page">
 
-  <!-- Header -->
-  <div class="hdr">
-    <div class="hdr-eyebrow">PwC Canada · UX &amp; Service Design · 2026</div>
-    <h1>AI in the <span>Design Process</span></h1>
-    <p class="hdr-sub">A step-by-step implementation guide — real workflows, copy-paste prompts, and downloadable assets so anyone on the team can adopt these practices immediately.</p>
-    <div class="team">
-      <span>Lisette</span><span>Holly</span><span>Sydney</span><span>Mi</span>
-      <span>Noah</span><span>Shikha</span><span>Loubna</span><span>Robyn</span>
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">Implementation Guide · 2026</div>
+        <h1>AI in the <em>Design Process</em></h1>
+        <p class="hero-sub">Step-by-step workflows, copy-paste prompts, and downloadable assets — so every designer on the team can adopt these practices from day one.</p>
+      </div>
+      <div class="hero-team">
+        <p>Contributors</p>
+        <div class="team-list">
+          <span>Lisette Viola</span><span>Holly Hrynyk</span><span>Sydney</span>
+          <span>Mi Huang</span><span>Noah Trotman</span><span>Shikha Bose</span>
+          <span>Loubna Smoudi</span><span>Robyn Carino</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Visual flow bar -->
-  <div class="flow-bar">
-    <div class="flow-phase" onclick="go('p1',document.querySelectorAll('.tab')[0])" style="color:#1a8a83;">
-      <div class="fp-num" style="color:#1a8a83;">Phase 1</div>
-      <div class="fp-title">Research &amp; Discovery</div>
-    </div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-phase" onclick="go('p2',document.querySelectorAll('.tab')[1])" style="color:#5429cc;">
-      <div class="fp-num" style="color:#5429cc;">Phase 2</div>
-      <div class="fp-title">Brainstorming &amp; Ideation</div>
-    </div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-phase" onclick="go('p3',document.querySelectorAll('.tab')[2])" style="color:#0071c2;">
-      <div class="fp-num" style="color:#0071c2;">Phase 3</div>
-      <div class="fp-title">HiFi &amp; Prototyping</div>
-    </div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-phase" onclick="go('p4',document.querySelectorAll('.tab')[3])" style="color:#2e7d54;">
-      <div class="fp-num" style="color:#2e7d54;">Phase 4</div>
-      <div class="fp-title">QA &amp; Handoff</div>
-    </div>
-  </div>
+  <!-- ═══════════════ PHASE 1 ═══════════════ -->
+  <div id="p1" class="panel active"
+    style="--pc:#E05A1B;--pc-light:#FEF0E8;--pc-mid:#FBCFB3;--pc-dk:#A63A07;">
 
-  <!-- ═══════════════════════════════════════
-       PHASE 1 — Research & Discovery
-  ═══════════════════════════════════════ -->
-  <div id="p1" class="panel active" style="--pc:#5AD8CC;--pc-bg:#f0fdfb;--pc-mid:#C6FAF6;--pc-dk:#1a8a83;">
-
-    <div class="ph-head">
-      <div class="ph-num">1</div>
-      <div class="ph-info">
+    <div class="ph">
+      <div class="ph-badge">1</div>
+      <div class="ph-text">
         <h2>Research &amp; Discovery</h2>
-        <p class="ph-desc">Get up to speed on any project in hours instead of days. Synthesize interviews, docs, and data into structured insights you can design from directly.</p>
+        <p>Get up to speed on any project in hours instead of days. Synthesize interviews, documents, and data into structured insights you can design from directly.</p>
         <div class="tool-row">
           <span class="tool">Microsoft Copilot</span>
           <span class="tool">ChatPwC (Opus)</span>
@@ -255,201 +330,272 @@ footer { text-align: center; margin-top: 60px; font-size: 11.5px; color: var(--i
 
     <div class="steps">
 
-      <!-- 1.1 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">🎙️</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Transcribe interviews and meetings automatically</strong>
             <div class="sc-meta"><span class="by">Lisette · Holly · Sydney · Mi · Shikha · Loubna · Robyn</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Before the session, enable Copilot in your Microsoft Teams meeting — click the Copilot icon in the meeting toolbar.</span></li>
-              <li><span class="n">2</span><span>Run the session as normal. Copilot generates a live transcript in the background.</span></li>
-              <li><span class="n">3</span><span>After the session, download the transcript from Microsoft Stream: Teams → Meetings → Recordings &amp; Transcripts.</span></li>
-              <li><span class="n">4</span><span>Keep the video recording on during the session — use it to QA AI synthesis outputs against what was actually said.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Before the session starts, <b>enable Copilot</b> in your Microsoft Teams meeting — click the Copilot icon in the meeting toolbar.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Run the session as normal. Copilot generates a <b>live transcript</b> in the background automatically.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content">After the session, download the transcript from <b>Microsoft Stream</b> — Teams → Meetings → Recordings &amp; Transcripts.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div></div>
+                <div class="howto-content">Keep the <b>video recording on</b> during the session — you'll use it later to QA the AI synthesis output against what was actually said.</div>
+              </div>
+            </div>
           </div>
-          <div class="callout warn"><span class="ci">⚠</span><span><strong>Always QA:</strong> Transcripts can be unreliable — words get dropped, names get mangled. Cross-check every AI synthesis output against your own session notes or the recording before using it in a design decision.</span></div>
-          <div class="callout tip"><span class="ci">💡</span><span>Copilot conversations are subject to PwC data retention policies and may be deleted. Don't treat them as your permanent project record — export and save anything important.</span></div>
+          <div class="callout warn"><span class="ci">⚠</span><div><strong>Always QA the output.</strong> Transcripts drop words and mangle names. Cross-check every AI synthesis against your own notes or the recording before using it in a design decision.</div></div>
+          <div class="callout tip"><span class="ci">💡</span><div>Copilot conversations are subject to PwC data retention policies and may be deleted. Export and save anything important — don't treat Copilot as a permanent record.</div></div>
         </div></div>
       </div>
 
-      <!-- 1.2 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">🧠</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Synthesize transcripts into structured design insights</strong>
             <div class="sc-meta"><span class="by">Sydney · Shikha · Mi · Lisette · Holly · Robyn</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
-            <div class="sec-label">Sydney's workflow — step by step</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Gather all project materials: SOW, stakeholder discovery transcripts, prior research decks, meeting notes.</span></li>
-              <li><span class="n">2</span><span>Attach an interview guide template as a reference artifact so the AI knows the research structure.</span></li>
-              <li><span class="n">3</span><span>Define your synthesis framework <em>before</em> prompting — decide what you want out: key themes + quotes, problem statements, opportunity areas, etc.</span></li>
-              <li><span class="n">4</span><span>Attach all files to ChatPwC (Opus) and run the prompt below.</span></li>
-              <li><span class="n">5</span><span>Download as Word. Open and refine — fill in nuance the AI missed.</span></li>
-              <li><span class="n">6</span><span>Ask follow-up probing questions: "What quotes support that theme?" or "Which participants mentioned X most?"</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Gather all project materials: <b>SOW, discovery transcripts, prior research decks, meeting notes</b>.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Attach an <b>interview guide template</b> as a reference artifact so the AI understands your research structure.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content"><b>Define your synthesis framework first</b> — decide what you want out: key themes + quotes, problem statements, opportunity areas, etc. Don't let the AI choose the structure for you.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div><div class="howto-line"></div></div>
+                <div class="howto-content">Attach all files to <b>ChatPwC (Opus)</b> and run the prompt below.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">5</div><div class="howto-line"></div></div>
+                <div class="howto-content">Download as Word. Open and <b>refine manually</b> — fill in nuance the AI missed.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">6</div></div>
+                <div class="howto-content">Ask <b>follow-up probing questions</b>: "What quotes support that theme?" or "Which participants mentioned X most?"</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Synthesis prompt — paste into ChatPwC with files attached</div>
-            <pre class="prompt">I'm a UX designer on [Project Name]. Attached are [N] interview transcripts from sessions with [stakeholder type].
+            <div class="prompt-lbl">Synthesis prompt — paste into ChatPwC with files attached</div>
+            <div class="prompt-box">
+              <pre>I'm a UX designer on [Project Name]. Attached are [N] interview transcripts from sessions with [stakeholder type].
 
-Synthesize these into a structured research output with:
+Synthesize these into a structured research output:
 
-1. Top 5–7 themes — each with a one-line summary and 2–3 direct quotes from participants
+1. Top 5–7 themes — each with a one-line summary and 2–3 direct quotes
 2. Core user pain points — ranked by how frequently they came up
 3. Design implications — for each theme, what should the design do differently?
-4. Contradictions or tensions — anything participants disagreed on that I should probe further
+4. Contradictions — anything participants disagreed on that I should probe further
 5. Open questions — things that came up but weren't resolved
 
-Format as a clean document I can paste into Word. Be specific — cite which participant (by role, not name) said what.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+Be specific. Cite which participant role said what. Format for Word.</pre>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
-          <div class="callout warn"><span class="ci">⚠</span><span>AI can over-simplify or flatten nuance from real sessions. Never use synthesis output directly as a design brief — it's a starting point that requires your own editorial judgment.</span></div>
+          <div class="callout warn"><span class="ci">⚠</span><div>AI flattens nuance. Never use synthesis output directly as a design brief — it's a starting point that needs your editorial judgment.</div></div>
         </div></div>
       </div>
 
-      <!-- 1.3 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">📂</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Get up to speed on a new project from existing documentation</strong>
             <div class="sc-meta"><span class="by">Holly · Shikha · Loubna · Robyn</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Don't wait for a catch-up meeting. Open Copilot with WorkIQ and Opus turned on.</span></li>
-              <li><span class="n">2</span><span>Point it at the project's SharePoint folder or upload the documents directly.</span></li>
-              <li><span class="n">3</span><span>Run the starter prompt below. Ask it to cite every document it pulls from.</span></li>
-              <li><span class="n">4</span><span>Follow up with more specific questions as gaps emerge.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content"><b>Don't wait for a catch-up meeting.</b> Open Copilot with WorkIQ and Opus turned on.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Point it at the project's <b>SharePoint folder</b> or upload the key documents directly.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content">Run the prompt below. Ask Copilot to <b>cite every document</b> it draws from.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div></div>
+                <div class="howto-content">Follow up with specific questions as gaps emerge — treat it like a briefing with a very well-read colleague.</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Project onboarding prompt</div>
-            <pre class="prompt">I'm a UX designer just joining [Project Name]. Based on all the documentation available, answer these:
+            <div class="prompt-lbl">Project onboarding prompt</div>
+            <div class="prompt-box">
+              <pre>I'm a UX designer just joining [Project Name]. Based on all the documentation available, answer these:
 
 1. What problem are we solving and for whom?
-2. What has already been built or designed — what exists today?
+2. What has already been built or designed?
 3. What UX improvements or future state have been discussed?
-4. Who are the key stakeholders, and what does each one care about most?
+4. Who are the key stakeholders and what does each care about most?
 5. What are the current open questions or unresolved decisions?
 6. What should I read first to get up to speed fastest?
 
-Cite the specific meeting, document, or deck that supports each answer. If something is uncertain, say so.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+Cite the specific meeting, document, or deck behind each answer. If something is uncertain, say so.</pre>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
-          <div class="callout tip"><span class="ci">💡</span><span>Shikha: "Joined a project with a long meeting history. Ran Copilot through all previous transcripts and arrived at my first meeting already knowing what they'd been discussing for months."</span></div>
+          <div class="callout tip"><span class="ci">💡</span><div><b>Shikha:</b> "Joined a project with years of meeting history. Ran Copilot through all transcripts and arrived at my first meeting already knowing what they'd been discussing for months."</div></div>
         </div></div>
       </div>
 
-      <!-- 1.4 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">🤖</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Build a Copilot onboarding agent for the project</strong>
             <div class="sc-meta"><span class="by">Loubna</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
-            <div class="sec-label">One-time setup</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Open Copilot Studio and create a new agent.</span></li>
-              <li><span class="n">2</span><span>In "Source files," add all onboarding materials: transcripts, Word docs, Excel sheets, PPTs, SharePoint pages.</span></li>
-              <li><span class="n">3</span><span><strong>Restrict the agent to only use source files.</strong> This prevents hallucination from general knowledge.</span></li>
-              <li><span class="n">4</span><span>Paste the system instructions below as the agent's behavior prompt.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Open <b>Copilot Studio</b> and create a new agent.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Under "Source files," add all onboarding materials: <b>transcripts, Word docs, Excel sheets, PPTs, SharePoint pages</b>.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content"><b>Restrict the agent to source files only.</b> This is critical — without this restriction, the agent will hallucinate project-specific details from general knowledge.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div><div class="howto-line"></div></div>
+                <div class="howto-content">Paste the <b>system instructions</b> below as the agent's behaviour prompt.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">5</div></div>
+                <div class="howto-content">Run the <b>starter prompts</b> to verify the agent is working correctly before sharing with the team.</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Full agent system instructions</div>
-            <pre class="prompt">You are the onboarding assistant for [Project Name]. Your purpose is to help new project members become productive quickly using the connected project materials.
+            <div class="prompt-lbl">Full agent system instructions — paste into Copilot Studio</div>
+            <div class="prompt-box">
+              <pre>You are the onboarding assistant for [Project Name]. Help new team members become productive quickly using only the connected project materials.
 
-Use ONLY the connected SharePoint files, transcripts, presentations, requirements documents, and project records as your knowledge sources. Do not draw from general knowledge.
+Use ONLY the connected files as your knowledge source. Do not draw from general knowledge.
 
 When answering:
-- Lead with a clear, concise answer — then provide supporting detail
-- Cite the document, deck, or transcript supporting each claim, including its date
-- Distinguish clearly between: Approved decisions / Proposed ideas / Assumptions / Open questions
-- If sources conflict, explain the conflict — do not silently choose one
-- Never invent missing information. Say "this isn't covered in the available materials" and suggest who to ask
-- Explain project-specific terms, acronyms, and systems in plain language
+- Lead with a clear answer, then provide supporting detail
+- Cite the document or transcript behind each claim, including its date
+- Distinguish between: Approved decisions / Proposed ideas / Assumptions / Open questions
+- If sources conflict, explain the conflict — do not choose silently
+- Never invent information — say what isn't covered and suggest who to ask
 
 When summarizing meetings, always separate:
 - Decisions made
 - Requirements confirmed
 - Action items and owners
 - Unresolved questions
-- Background context
+- Background context only
 
 For project overviews, always cover:
-- Project purpose and expected business outcomes
-- Current scope and what's out of scope
-- Main business and technical requirements
-- Key stakeholders, their roles, and what they care about
+- Purpose and expected business outcomes
+- Scope and what's out of scope
+- Key stakeholders, their roles, and priorities
 - Timeline, milestones, and current status
-- Risks, dependencies, and unresolved questions
+- Risks, dependencies, and open questions
 - Recommended reading order for a new team member</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Starter prompts to run once the agent is live</div>
-            <pre class="prompt">Give me an executive briefing on this project — what are we building, why, and for whom?
+            <div class="prompt-lbl">Starter prompts to verify the agent is working</div>
+            <div class="prompt-box">
+              <pre>Give me an executive briefing — what are we building, why, and for whom?
 
-Who are all the key stakeholders and team members? What is each person's role?
+Who are all the key stakeholders and team members, and what is each person's role?
 
 What are the main business and technical requirements?
 
 Are there any contradicting requirements or outdated decisions I should know about?
 
-What are the key user pain points we're designing to solve?</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+What are the key user pain points we're solving for?</pre>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
-          <div class="callout warn"><span class="ci">⚠</span><span>If the agent is not restricted to source files, it will fabricate project-specific details from general knowledge. Always enable the source-file restriction before sharing with the team.</span></div>
         </div></div>
       </div>
 
-      <!-- 1.5 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">📊</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Understand complex data before designing for it</strong>
             <div class="sc-meta"><span class="by">Shikha · Mi · Robyn</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Open the Excel file containing the data you'll be designing for.</span></li>
-              <li><span class="n">2</span><span>Open Copilot directly inside the Excel file (Copilot icon in the ribbon).</span></li>
-              <li><span class="n">3</span><span>Start broad — understand the landscape before asking specific questions.</span></li>
-              <li><span class="n">4</span><span>Use the answers to make informed decisions about how to visualize and structure data in Figma before you start designing.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Open the <b>Excel file</b> you'll be designing for.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Open <b>Copilot directly inside Excel</b> via the Copilot icon in the ribbon — don't copy data into a chat window.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content">Start broad — ask the big questions first before getting specific. Use the prompts below.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div></div>
+                <div class="howto-content">Use the answers to <b>make informed design decisions</b> about how to visualize and structure data in Figma before opening it.</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Data exploration prompts — run inside Excel</div>
-            <pre class="prompt">What is this dataset tracking? Give me a plain-language summary of what it contains and what it measures.
+            <div class="prompt-lbl">Data exploration prompts — run inside Excel with Copilot</div>
+            <div class="prompt-box">
+              <pre>What is this dataset tracking? Give me a plain-language summary of what it contains and what it measures.
 
 What are the most important patterns, trends, or outliers in this data?
 
@@ -458,124 +604,91 @@ If I had to design a dashboard to surface the most critical information, what sh
 What are the columns or fields that matter most to the business?
 
 Are there any data quality issues, gaps, or anomalies I should design for?</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
-          <div class="callout tip"><span class="ci">💡</span><span>Robyn's tip for quantitative-heavy work: add parameters like "only surface statistically significant insights" and "cite the specific data points behind each conclusion" to keep outputs rigorous.</span></div>
+          <div class="callout tip"><span class="ci">💡</span><div><b>Robyn's tip:</b> For quantitative-heavy work, add "only surface statistically significant insights" and "cite the specific data points behind each conclusion" to keep outputs rigorous.</div></div>
         </div></div>
       </div>
 
-      <!-- 1.6 — NEW -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">🔍</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Define your research synthesis framework before you start</strong>
-            <div class="sc-meta"><span class="badge-new">New</span><span class="by">Recommended before every research phase</span></div>
+            <div class="sc-meta"><span class="badge-new">Recommended</span><span class="by">Run before every research phase</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
+          <div class="callout info"><span class="ci">ℹ</span><div>Without a defined structure, AI synthesis outputs are inconsistent across projects and designers. Running this step before research starts means every output looks the same, is easier to compare, and feeds directly into design work.</div></div>
           <div>
-            <div class="sec-label">Why this matters</div>
-            <ol class="how">
-              <li><span class="n">!</span><span>Without a defined structure, AI synthesis outputs are inconsistent across projects and designers. Running this step before interviews means every research output looks the same, is easier to compare, and feeds directly into design work.</span></li>
-            </ol>
-          </div>
-          <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Before starting research, paste the prompt below into ChatPwC with your project brief attached.</span></li>
-              <li><span class="n">2</span><span>Review the output framework and adjust to fit your project's specific questions.</span></li>
-              <li><span class="n">3</span><span>Save the agreed framework and share with the team — everyone uses the same structure for synthesis on that project.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Before starting research, paste the prompt below into ChatPwC with the <b>project brief attached</b>.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Review the output framework and <b>adjust to fit your project</b>'s specific questions and stakeholder needs.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div></div>
+                <div class="howto-content"><b>Share with the team</b> — everyone uses the same structure for synthesis on that project. Paste it as context into every subsequent synthesis session.</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Framework design prompt</div>
-            <pre class="prompt">I'm about to start a UX research phase for [Project Name]. Based on the attached project brief, help me define a research synthesis framework.
+            <div class="prompt-lbl">Framework design prompt</div>
+            <div class="prompt-box">
+              <pre>I'm about to start a UX research phase for [Project Name]. Based on the attached project brief, help me define a research synthesis framework.
 
 The framework should tell me:
 1. What are the 4–6 most important questions this research needs to answer?
-2. What synthesis structure should I use to capture findings? (e.g. themes + quotes, jobs-to-be-done, pain/gain map, etc.)
-3. What does "good synthesis" look like for this specific project — what outputs do stakeholders and the design team need?
-4. What are the risks of bias or gaps I should watch for given this research context?
+2. What synthesis structure should I use? (e.g. themes + quotes, jobs-to-be-done, pain/gain, etc.)
+3. What does "good synthesis" look like for this project — what outputs do stakeholders need?
+4. What are the risks of bias or gaps I should watch for?
 
 Output a one-page framework document I can share with the team before research begins.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
         </div></div>
       </div>
 
-      <!-- 1.7 -->
-      <div class="sc">
-        <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">📸</div>
-          <div class="sc-title">
-            <strong>Extract content and structure from existing designs</strong>
-            <div class="sc-meta"><span class="by">Shikha</span></div>
-          </div>
-          <div class="sc-chevron">▼</div>
-        </div>
-        <div class="sc-body"><div class="sc-inner">
-          <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Take screenshots of all existing designs relevant to your work.</span></li>
-              <li><span class="n">2</span><span>Upload the screenshots into ChatPwC.</span></li>
-              <li><span class="n">3</span><span>Run the prompt below to extract all labels, content, and structure as editable text.</span></li>
-              <li><span class="n">4</span><span>Use the output as a foundation for new design work — no manual transcription needed.</span></li>
-            </ol>
-          </div>
-          <div class="prompt-wrap">
-            <div class="prompt-label">Content extraction prompt</div>
-            <pre class="prompt">I've attached screenshots of an existing product design. Please extract all of the following:
-
-- All text labels, headings, and body copy (exactly as written)
-- All navigation items and menu labels
-- All button labels and CTAs
-- The page/screen structure and information hierarchy
-- All form field labels and input types
-- Any table or data column headers
-- Any status labels, tags, or system messages
-
-Organise by screen. I'll use this as the content foundation for a redesign.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
-          </div>
-        </div></div>
-      </div>
-
-    </div><!-- /steps p1 -->
+    </div>
 
     <div class="insights">
       <div class="ins w"><h4>What's working</h4><ul>
         <li>Hours of reading compressed into minutes</li>
         <li>Arriving at first meetings already fully informed</li>
-        <li>Onboarding agent removes dependency on any one person for context</li>
+        <li>Onboarding agent removes dependency on any one person</li>
         <li>Data analysis reveals patterns not visible by eye</li>
       </ul></div>
       <div class="ins t"><h4>Tensions &amp; concerns</h4><ul>
-        <li>AI misses nuance from real sessions — QA is non-negotiable</li>
+        <li>AI misses nuance — QA against recordings is non-negotiable</li>
         <li>AI sometimes invents or fills gaps in requirements incorrectly</li>
-        <li>Copilot conversations deleted by retention policies — don't rely on them as records</li>
-        <li>Repetitive output when synthesizing multiple similar documents</li>
+        <li>Copilot conversations deleted by retention policies</li>
+        <li>Repetitive output across similar documents</li>
       </ul></div>
       <div class="ins n"><h4>Next steps</h4><ul>
-        <li>Standardize synthesis prompts across the team so all outputs look the same</li>
+        <li>Standardize synthesis prompts so all outputs look the same</li>
         <li>Build shared prompt library — Sydney's prompts as starting templates</li>
         <li>Define a QA checklist for every AI synthesis output</li>
       </ul></div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════
-       PHASE 2 — Brainstorming & Ideation
-  ═══════════════════════════════════════ -->
-  <div id="p2" class="panel" style="--pc:#874FFF;--pc-bg:#f5f0ff;--pc-mid:#DCCCFF;--pc-dk:#5429cc;">
+  <!-- ═══════════════ PHASE 2 ═══════════════ -->
+  <div id="p2" class="panel"
+    style="--pc:#7B35A2;--pc-light:#F4EEFF;--pc-mid:#DDBFF8;--pc-dk:#55207A;">
 
-    <div class="ph-head">
-      <div class="ph-num">2</div>
-      <div class="ph-info">
+    <div class="ph">
+      <div class="ph-badge">2</div>
+      <div class="ph-text">
         <h2>Brainstorming &amp; Ideation</h2>
-        <p class="ph-desc">Move from research insights to divergent design directions without starting from a blank canvas. Use AI to generate, constrain, and evaluate concepts before committing to a direction.</p>
+        <p>Move from research insights to divergent design directions fast. No blank canvas. No generic outputs. Use AI to generate, constrain, and evaluate concepts before committing to a direction.</p>
         <div class="tool-row">
           <span class="tool">ChatPwC (Opus)</span>
           <span class="tool">Figma Make</span>
@@ -586,242 +699,271 @@ Organise by screen. I'll use this as the content foundation for a redesign.</pre
 
     <div class="steps">
 
-      <!-- 2.1 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">💡</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Frame design directions from research insights</strong>
             <div class="sc-meta"><span class="by">Shikha · Sydney</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Complete Phase 1 synthesis first. You need concrete insights before this step — don't skip it.</span></li>
-              <li><span class="n">2</span><span>Paste your synthesized insights into ChatPwC as the starting context.</span></li>
-              <li><span class="n">3</span><span>Run the prompt below. The goal is to get conceptual directions — not wireframes, not visual styles. Thinking, not pixels.</span></li>
-              <li><span class="n">4</span><span>This becomes the conceptual foundation before you open Figma.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content"><b>Complete Phase 1 synthesis first.</b> You need concrete insights before this step — don't skip it.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Paste your <b>synthesized insights</b> into ChatPwC as the starting context.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content">Run the prompt below. You want <b>conceptual directions</b> — not wireframes, not visual styles. Thinking before pixels.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div></div>
+                <div class="howto-content">Use the output as a <b>conceptual foundation</b> before you open Figma — so you're exploring directions, not starting from nothing.</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Direction-framing prompt</div>
-            <pre class="prompt">I've just completed user research for [Project Name]. Here are the synthesized insights:
-
+            <div class="prompt-lbl">Direction-framing prompt</div>
+            <div class="prompt-box">
+              <pre>I've just completed user research for [Project Name]. Here are the synthesized insights:
 [Paste your research synthesis here]
 
-Based on these insights, propose 3–5 distinct design directions I could explore. For each:
+Based on these, propose 3–5 distinct design directions. For each:
 - Name: a memorable 2–3 word title
 - Premise: one sentence describing the core idea
-- Which user pain points or needs it directly addresses
+- Which user pain points it directly addresses
 - The key interaction or experience principle behind it
 - What would be true about this design that wouldn't be true about the others
 - Main risk or assumption to validate
 
-Make these genuinely different from each other — not variations on one idea. I want real divergence.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+Make these genuinely different from each other — not variations on one theme.</pre>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
-          <div class="callout tip"><span class="ci">💡</span><span>Sydney: "Feed the PRD into ChatPwC and ask it to produce a low-fi concept or interface structure based on its understanding — use that as the starting point for your Figma Make prompt."</span></div>
         </div></div>
       </div>
 
-      <!-- 2.2 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">✍️</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Craft a constraint-aware prompt for Figma Make</strong>
             <div class="sc-meta"><span class="by">Shikha · Sydney · Loubna</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
+          <div class="callout info"><span class="ci">ℹ</span><div>An unconstrained prompt produces visually interesting but <b>technically unbuildable</b> outputs. Baking platform limits into the prompt before running it means every output is something you can actually ship.</div></div>
           <div>
-            <div class="sec-label">Why constraints matter</div>
-            <ol class="how">
-              <li><span class="n">!</span><span>An unconstrained prompt produces visually interesting but technically unbuildable outputs. Baking platform and design system limits into the prompt before running it means every output is something you can actually ship.</span></li>
-            </ol>
-          </div>
-          <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Define your platform constraints: what components, patterns, and interactions are actually available in the target environment?</span></li>
-              <li><span class="n">2</span><span>Open ChatPwC and run the prompt below to draft a well-structured Figma Make prompt.</span></li>
-              <li><span class="n">3</span><span>Review and refine the output before running it in Figma Make.</span></li>
-              <li><span class="n">4</span><span>Add this instruction to the final prompt: "Use as few credits as possible. Ask me clarifying questions before executing."</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Define your <b>platform constraints</b> — what components and interactions are actually available in the target environment?</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Open ChatPwC and run the <b>prompt-writing prompt</b> below — give it your design direction, research context, and constraints.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content">Review and refine the output <b>before</b> running it in Figma Make.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div></div>
+                <div class="howto-content">Add this line to the final prompt: <b>"Use as few credits as possible. Ask me clarifying questions before executing."</b></div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Prompt to write your Figma Make prompt</div>
-            <pre class="prompt">Help me write a Figma Make prompt for a design I need to create.
+            <div class="prompt-lbl">Prompt to write your Figma Make prompt</div>
+            <div class="prompt-box">
+              <pre>Help me write a Figma Make prompt for a design I need to create.
 
 Context:
 - Project: [Project Name]
 - What we're designing: [describe the screen or feature]
-- Target platform / environment: [e.g. SharePoint / iOS app / internal web tool]
-- Design direction: [paste the chosen direction from the previous step]
-- Key user needs it must address: [2–3 bullet points from research]
+- Target platform: [e.g. SharePoint / iOS app / internal web tool]
+- Design direction: [paste the chosen direction]
+- Key user needs: [2–3 bullet points from research]
 
-Platform constraints (the design MUST respect these):
-- [List what components or interactions are available, e.g. "SharePoint web parts only — no custom CSS"]
-- [Any design system or token constraints]
-- [Any screen size or device requirements]
+Constraints (design MUST respect these):
+- [Platform-specific limits, e.g. "SharePoint web parts only — no custom CSS"]
+- [Design system or component library constraints]
+- [Screen size or device requirements]
 
-Write a Figma Make prompt that produces a strong first design attempt — specific enough to be useful, open enough to allow variation. Keep the language direct and free of jargon.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+Write a Figma Make prompt that is specific enough to produce something useful, but open enough to allow creative variation. Keep the language direct and free of jargon.</pre>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
-          <div class="callout tip"><span class="ci">💡</span><span>Shikha's credit-saving technique: tell Figma Make to "use as few credits as possible and ask clarifying questions before executing anything." Stays in control, prevents wasted runs.</span></div>
+          <div class="callout tip"><span class="ci">💡</span><div><b>Shikha's credit-saving technique:</b> Tell both ChatPwC and Figma Make to "use as few credits as possible and ask clarifying questions before executing anything." Keeps you in control, prevents wasted runs.</div></div>
         </div></div>
       </div>
 
-      <!-- 2.3 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">🎨</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Generate multiple design directions with Figma Make</strong>
             <div class="sc-meta"><span class="by">Holly · Noah · Mi · Shikha · Loubna</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Open Figma Make and paste the constraint-aware prompt from Step 2.2.</span></li>
-              <li><span class="n">2</span><span>Ask explicitly for multiple variations: "Generate 10 different versions of this."</span></li>
-              <li><span class="n">3</span><span>Review outputs — the goal is to think differently and break out of your defaults, not to ship any of them directly.</span></li>
-              <li><span class="n">4</span><span>Pick the 2–3 most interesting directions and bring them to stakeholders for early feedback.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Open <b>Figma Make</b> and paste the constraint-aware prompt from the previous step.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Ask explicitly for multiple variations: <b>"Generate 10 different versions of this."</b> Don't settle for 3.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content">Review outputs — the goal is to <b>think differently</b> and break out of your defaults. Not to ship any of them directly.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div></div>
+                <div class="howto-content">Pick the <b>2–3 most interesting directions</b> and bring them to stakeholders for early feedback.</div>
+              </div>
+            </div>
           </div>
-          <div>
-            <div class="sec-label">Noah's approach — force divergent thinking</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Describe your initial idea in plain language to Figma Make.</span></li>
-              <li><span class="n">2</span><span>Explicitly ask for 10 different versions. Don't settle for 3.</span></li>
-              <li><span class="n">3</span><span>Use the outputs to challenge your own assumptions — not to find an answer but to see what you haven't considered.</span></li>
-            </ol>
-          </div>
-          <div>
-            <div class="sec-label">Mi's approach — use existing design as input</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Upload your current design into Figma Make.</span></li>
-              <li><span class="n">2</span><span>Prompt: "Here is my current design. Generate 5 different layout and visual approaches that keep the same core function but explore completely different ways to present it."</span></li>
-              <li><span class="n">3</span><span>Compare and rethink the flow and layout based on what emerges.</span></li>
-            </ol>
-          </div>
-          <div class="callout warn"><span class="ci">⚠</span><span>AI-generated directions often feel generic. They're a prompt for your own thinking — not a finished concept. Heavy designer curation is always required.</span></div>
+          <div class="callout warn"><span class="ci">⚠</span><div>AI-generated directions often feel generic. They're a prompt for your own thinking — not a finished concept. Heavy designer curation is always required.</div></div>
         </div></div>
       </div>
 
-      <!-- 2.4 — NEW -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">⚖️</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Evaluate and score design directions before stakeholder review</strong>
-            <div class="sc-meta"><span class="badge-new">New</span><span class="by">Recommended before every stakeholder review</span></div>
+            <div class="sc-meta"><span class="badge-new">Recommended</span><span class="by">Before every stakeholder review</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
+          <div class="callout info"><span class="ci">ℹ</span><div>Going into a review with 3 equally valid directions puts the decision in the stakeholder's hands. This step gives you a structured rationale for your recommendation before the room decides by gut feel.</div></div>
           <div>
-            <div class="sec-label">Why this step matters</div>
-            <ol class="how">
-              <li><span class="n">!</span><span>Going into a stakeholder review with 3 directions that feel equally valid puts the design decision in the stakeholder's hands. This step gives you a structured rationale for which direction you're recommending — and why — before the room decides by gut feel.</span></li>
-            </ol>
-          </div>
-          <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>After generating directions, paste the summary of each into ChatPwC with your research insights and project goals.</span></li>
-              <li><span class="n">2</span><span>Run the evaluation prompt below.</span></li>
-              <li><span class="n">3</span><span>Use the output to form your own recommendation — don't let the AI make the call, use it to structure your thinking.</span></li>
-              <li><span class="n">4</span><span>Present your recommended direction at the stakeholder review with clear rationale behind it.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Paste a summary of each design direction into ChatPwC with your <b>research insights and project goals</b>.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Run the prompt below to get a structured evaluation.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div></div>
+                <div class="howto-content">Use the output to <b>form your own recommendation</b> — don't let the AI make the call. Use it to structure your thinking and build your rationale.</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Direction evaluation prompt</div>
-            <pre class="prompt">I have [N] design directions for [Project Name]. Help me evaluate them against what matters most.
+            <div class="prompt-lbl">Direction evaluation prompt</div>
+            <div class="prompt-box">
+              <pre>I have [N] design directions for [Project Name]. Evaluate them against what matters most.
 
-Project goals: [paste goals from brief or PRD]
+Project goals: [paste from brief or PRD]
 User needs from research: [paste top 3–4 findings]
 Technical constraints: [list platform/system limits]
 
-Here are the design directions:
+Directions:
 Direction 1: [name + one paragraph description]
 Direction 2: [name + one paragraph description]
 Direction 3: [name + one paragraph description]
 
-For each direction, score it (1–5) on:
+Score each (1–5) on:
 - User need fit: how directly it addresses the core user pain points
-- Technical feasibility: how buildable it is within the constraints
-- Business alignment: how well it supports the stated project goals
-- Design risk: how much uncertainty or assumption it relies on (lower is better)
+- Technical feasibility: how buildable within the constraints
+- Business alignment: how well it supports project goals
+- Design risk: how much uncertainty it relies on (lower = better)
 
-Then give me a clear recommendation with a 2–3 sentence rationale I can use in a stakeholder presentation.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+Then give me a clear recommendation with a 2–3 sentence rationale for stakeholder presentation.</pre>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
         </div></div>
       </div>
 
-      <!-- 2.5 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">🗂️</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Generate realistic mock data without exposing client information</strong>
             <div class="sc-meta"><span class="by">Shikha · Loubna</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
+          <div class="callout warn"><span class="ci">🔒</span><div><strong>Security:</strong> Never put actual client data into Figma Make. Copilot is more secure. Generate synthetic data in Copilot, then use it in Figma.</div></div>
           <div>
-            <div class="callout info"><span class="ci">🔒</span><span><strong>Security first:</strong> Never put actual client data into Figma Make. Copilot is more secure for data handling. Generate synthetic data in Copilot, then use it in Figma.</span></div>
-          </div>
-          <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Use the real Excel file as a structural reference only — look at column headers, data types, and format.</span></li>
-              <li><span class="n">2</span><span>Open Copilot and run the prompt below — describe the structure, not the actual data.</span></li>
-              <li><span class="n">3</span><span>Download the synthetic dataset as Excel or CSV.</span></li>
-              <li><span class="n">4</span><span>Use this dataset in Figma Make — realistic-looking designs with zero data risk.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Use the real Excel file as a <b>structural reference only</b> — look at column headers, data types, and format. Do not copy real values.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Open Copilot and describe the structure. Run the prompt below.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content">Download the <b>synthetic dataset</b> as Excel or CSV.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div></div>
+                <div class="howto-content">Use this dataset in Figma Make — <b>realistic-looking designs with zero data risk</b>.</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Mock data generation prompt</div>
-            <pre class="prompt">I'm a UX designer who needs realistic-looking fake data for design mockups. I cannot use real client data.
+            <div class="prompt-lbl">Mock data generation prompt</div>
+            <div class="prompt-box">
+              <pre>I'm a UX designer who needs realistic-looking fake data for design mockups. I cannot use real client data.
 
-Here is the data structure I'm designing for:
+Data structure I'm designing for:
 [Describe columns and types, e.g. "Employee Name (text), Department (Finance/HR/IT/Operations), Status (Active/Inactive), Date Joined (DD/MM/YYYY), Budget ($CAD)"]
 
 Generate 25 rows of realistic fake data that:
 - Matches this exact structure and format
 - Uses plausible-sounding fake names, values, and dates
 - Includes a realistic distribution (not all the same status or department)
-- Includes 2–3 edge cases to stress-test the design (e.g. very long name, missing value, maximum number)
+- Includes 2–3 edge cases to stress-test the design (very long name, missing value, maximum number)
 
-Output as a table I can paste into Excel.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+Output as a table I can paste directly into Excel.</pre>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
         </div></div>
       </div>
 
-    </div><!-- /steps p2 -->
+    </div>
 
     <div class="insights">
       <div class="ins w"><h4>What's working</h4><ul>
-        <li>Rapid concept variations without blank canvas paralysis</li>
+        <li>Rapid variations without blank canvas paralysis</li>
         <li>Research insights feed directly into design framing</li>
         <li>Constraint-based prompts cut unbuildable outputs significantly</li>
-        <li>Structured direction evaluation makes stakeholder reviews sharper</li>
+        <li>Structured evaluation makes stakeholder reviews sharper</li>
       </ul></div>
       <div class="ins t"><h4>Tensions &amp; concerns</h4><ul>
         <li>AI directions feel generic — heavy curation still required</li>
         <li>Different prompt styles across the team produce inconsistent outputs</li>
-        <li>Easy to spend tokens on variations nobody needs</li>
+        <li>Easy to burn tokens on variations nobody ends up using</li>
       </ul></div>
       <div class="ins n"><h4>Next steps</h4><ul>
         <li>Define a standard PRD → low-fi prompt for the whole team</li>
@@ -831,16 +973,15 @@ Output as a table I can paste into Excel.</pre>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════
-       PHASE 3 — HiFi & Prototyping
-  ═══════════════════════════════════════ -->
-  <div id="p3" class="panel" style="--pc:#3DADFF;--pc-bg:#f0f8ff;--pc-mid:#C2E5FF;--pc-dk:#0071c2;">
+  <!-- ═══════════════ PHASE 3 ═══════════════ -->
+  <div id="p3" class="panel"
+    style="--pc:#0076A8;--pc-light:#E5F4FA;--pc-mid:#A8D9EF;--pc-dk:#00527A;">
 
-    <div class="ph-head">
-      <div class="ph-num">3</div>
-      <div class="ph-info">
+    <div class="ph">
+      <div class="ph-badge">3</div>
+      <div class="ph-text">
         <h2>High-Fidelity Design &amp; Prototyping</h2>
-        <p class="ph-desc">Move from concepts to production-quality, interactive, design-system-compliant prototypes. Build working products, not just mockups.</p>
+        <p>Move from concepts to production-quality, interactive, design-system-compliant prototypes. Build working products, not just mockups.</p>
         <div class="tool-row">
           <span class="tool">Figma Make</span>
           <span class="tool">Claude Code</span>
@@ -854,259 +995,283 @@ Output as a table I can paste into Excel.</pre>
 
     <div class="steps">
 
-      <!-- 3.1 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">🔗</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Connect Claude to the Appkit design system — do this first</strong>
-            <div class="sc-meta"><span class="by">Lisette · Mi</span></div>
+            <div class="sc-meta"><span class="badge-new">Do at project start</span><span class="by">Lisette · Mi</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
+          <div class="callout info"><span class="ci">ℹ</span><div>If Claude is connected to Appkit before you start, every screen it generates uses the correct components automatically — zero manual replacement. Do this at the start of every project.</div></div>
           <div>
-            <div class="sec-label">Why do this before anything else</div>
-            <ol class="how">
-              <li><span class="n">!</span><span>If Claude is connected to Appkit before you start prototyping, every screen it generates uses the correct components automatically. Zero manual component replacement. Do this at the start of every project — not as an afterthought.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Follow the instructions on the <b>Appkit website</b> to connect the design system to Claude via the React package.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Install the <b>Appkit 4 Re-Branded packages</b> in your prototype project.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content">Connect <b>Storybook to Appkit</b> — this lets you iterate on individual components within the design system.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div></div>
+                <div class="howto-content"><b>Verify the connection</b> is working before moving to any design generation steps. Generate a simple test screen to confirm components are rendering correctly.</div>
+              </div>
+            </div>
           </div>
-          <div>
-            <div class="sec-label">Setup steps</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Follow the instructions on the Appkit website to connect the design system to Claude via the React package.</span></li>
-              <li><span class="n">2</span><span>Install the Appkit 4 Re-Branded packages in your prototype project.</span></li>
-              <li><span class="n">3</span><span>Connect Storybook to Appkit — this lets you iterate on individual components within the design system.</span></li>
-              <li><span class="n">4</span><span>Verify the connection is working before moving to any design generation steps.</span></li>
-            </ol>
-          </div>
-          <div class="callout tip"><span class="ci">💡</span><span>Lisette: "Connecting Claude to Appkit in advance means you can generate new screens entirely through Claude — no need to manually recreate Figma screens. The output is already design-system-compliant."</span></div>
+          <div class="callout tip"><span class="ci">💡</span><div><b>Lisette:</b> "Connecting Claude to Appkit means you can generate new screens entirely through Claude — no need to manually recreate Figma screens. The output is already design-system-compliant."</div></div>
         </div></div>
       </div>
 
-      <!-- 3.2 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">🖼️</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Generate design solutions within platform limits using Figma Make</strong>
             <div class="sc-meta"><span class="by">Lisette · Mi · Shikha · Noah · Loubna</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Take the refined, constraint-aware prompt from Phase 2 (Step 2.2).</span></li>
-              <li><span class="n">2</span><span>Open Figma Make and run the prompt.</span></li>
-              <li><span class="n">3</span><span>Evaluate generated solutions against your constraints and user needs.</span></li>
-              <li><span class="n">4</span><span>Iterate with the "use as few credits as possible, ask clarifying questions" instruction to preserve tokens.</span></li>
-              <li><span class="n">5</span><span>When tokens run low, transition to Claude Code (Step 3.4 below).</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Take the <b>constraint-aware prompt</b> from Phase 2 Step 2.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Open <b>Figma Make</b> and run the prompt.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content">Evaluate generated solutions against your constraints and user needs. Iterate with the <b>"ask clarifying questions before executing"</b> instruction to preserve tokens.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div></div>
+                <div class="howto-content">When tokens run low, <b>transition to Claude Code</b> (next step). Plan for this from the start — don't wait until you're stuck mid-flow.</div>
+              </div>
+            </div>
           </div>
-          <div class="callout tip"><span class="ci">💡</span><span>Plan for Claude Code as your fallback from the start of every project. Don't wait until tokens run out — know in advance which screens you'll finish in Claude Code.</span></div>
         </div></div>
       </div>
 
-      <!-- 3.3 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">📝</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Auto-populate designs with realistic content and data</strong>
             <div class="sc-meta"><span class="by">Shikha · Loubna</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
-            <div class="sec-label">Method A — Figma AI built-in (names, dates, copy)</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>In Figma Design, select the frames or layers you want to populate.</span></li>
-              <li><span class="n">2</span><span>Use Figma Design's built-in AI to fill placeholder data automatically — names, dates, numbers.</span></li>
-              <li><span class="n">3</span><span>No manual mock content entry needed.</span></li>
-            </ol>
+            <div class="slabel">Method A — Figma AI (names, dates, copy)</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">In Figma Design, <b>select the frames</b> you want to populate.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div></div>
+                <div class="howto-content">Use Figma Design's <b>built-in AI</b> to fill placeholder data — names, dates, numbers — automatically. No manual entry needed.</div>
+              </div>
+            </div>
           </div>
           <div>
-            <div class="sec-label">Method B — Figma Make + Excel (data visualizations)</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Export or prepare the Excel file with the data to visualize (use synthetic data from Phase 2 Step 2.5).</span></li>
-              <li><span class="n">2</span><span>Feed the Excel file directly into Figma Make.</span></li>
-              <li><span class="n">3</span><span>Ask Figma Make to generate charts, tables, or dashboards based on the data — saves the time of manually building every visualization from scratch.</span></li>
-            </ol>
+            <div class="slabel">Method B — Figma Make + Excel (data visualizations)</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Use the <b>synthetic data</b> generated in Phase 2 Step 5 (never real client data).</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Feed the Excel file directly into <b>Figma Make</b>.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div></div>
+                <div class="howto-content">Ask Figma Make to <b>generate charts, tables, or dashboards</b> from the data — saves the time of manually building every visualization from scratch.</div>
+              </div>
+            </div>
           </div>
           <div>
-            <div class="sec-label">Method C — Figma Agent (Loubna's workflow)</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Open the Figma agent panel and select the mockups to populate.</span></li>
-              <li><span class="n">2</span><span>Attach the Excel file or a screenshot of the data source.</span></li>
-              <li><span class="n">3</span><span>Prompt: <code>"Input dummy data from [source] to the mockup [name]"</code></span></li>
-            </ol>
+            <div class="slabel">Method C — Figma Agent (Loubna's workflow)</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Open the <b>Figma agent</b> panel and select the mockups to populate.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Attach the Excel file or a screenshot of the data source.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div></div>
+                <div class="howto-content">Prompt: <b>"Input dummy data from [source] to the mockup [name]"</b></div>
+              </div>
+            </div>
           </div>
         </div></div>
       </div>
 
-      <!-- 3.4 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">⚡</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Claude Code + Figma MCP — build a working interactive prototype</strong>
             <div class="sc-meta"><span class="by">Lisette · Mi · Noah · Loubna</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
-            <div class="sec-label">When to use this</div>
-            <ol class="how">
-              <li><span class="n">!</span><span>This is your primary prototyping tool when you need an interactive, working prototype — not just a clickable mockup. Also your fallback when Figma Make tokens run out.</span></li>
-            </ol>
-          </div>
-          <div>
-            <div class="sec-label">The workflow</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Clean up your Figma file first — use Figma AI to rename layers and organize structure. A clean file helps Claude read the design correctly.</span></li>
-              <li><span class="n">2</span><span>Enable the Figma MCP server in Claude Code. This lets Claude read your Figma designs directly.</span></li>
-              <li><span class="n">3</span><span>In Claude Code, tell Claude which Figma file and frames to work from.</span></li>
-              <li><span class="n">4</span><span>Ask Claude to build an interactive prototype from the static mockups.</span></li>
-              <li><span class="n">5</span><span>Iterate using Figma MCP + Claude Code in tandem — refine look and feel without excessive prompting.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content"><b>Clean up your Figma file first.</b> Use Figma AI to rename layers and organize structure — a clean file helps Claude read the design correctly.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content"><b>Enable the Figma MCP server</b> in Claude Code. This lets Claude read your Figma designs directly.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content">In Claude Code, tell Claude <b>which Figma file and frames</b> to work from.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div><div class="howto-line"></div></div>
+                <div class="howto-content">Run the prompt below. Ask Claude to <b>build an interactive prototype</b> from the static mockups.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">5</div></div>
+                <div class="howto-content"><b>Iterate using Figma MCP + Claude Code in tandem</b> — refine look and feel without excessive back-and-forth prompting.</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Prototype build prompt for Claude Code</div>
-            <pre class="prompt">I've connected you to my Figma file via MCP. The designs are in [Figma file name], frames [list the key screens].
+            <div class="prompt-lbl">Prototype build prompt for Claude Code</div>
+            <div class="prompt-box">
+              <pre>I've connected you to my Figma file via MCP. Designs are in [Figma file name], frames: [list key screens].
 
-Please build a working interactive prototype based on these designs. Requirements:
+Build a working interactive prototype based on these designs:
 - Use the Appkit component library (already connected)
 - Implement all navigation flows between screens
 - Make interactive elements functional (dropdowns, modals, form inputs)
 - Use the mock data I'll provide for realistic content
 - Match the visual design from Figma as closely as possible
 
-Start with the main user flow: [describe the primary flow, e.g. "Login → Dashboard → Detail view → Edit → Save"]
+Primary user flow to build first: [describe main flow, e.g. "Login → Dashboard → Detail → Edit → Save"]
 
 Ask me any clarifying questions before you start building.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
-          <div class="callout tip"><span class="ci">💡</span><span>Lisette: "Using Figma MCP and Claude Code in tandem significantly reduces the amount of prompting needed. You spend more time reviewing and less time describing."</span></div>
+          <div class="callout tip"><span class="ci">💡</span><div><b>Lisette:</b> "Using Figma MCP and Claude Code in tandem reduces prompting significantly. You spend more time reviewing and less time describing."</div></div>
         </div></div>
       </div>
 
-      <!-- 3.5 -->
-      <div class="sc">
-        <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">🔥</div>
-          <div class="sc-title">
-            <strong>Use the "Grill Me" skill to pressure-test design decisions</strong>
-            <div class="sc-meta"><span class="by">Mi · Noah</span></div>
-          </div>
-          <div class="sc-chevron">▼</div>
-        </div>
-        <div class="sc-body"><div class="sc-inner">
-          <div>
-            <div class="sec-label">When to use it</div>
-            <ol class="how">
-              <li><span class="n">!</span><span>Use before implementing a complex design decision — especially when starting from scratch or when multiple valid design paths exist. Noah: "Helpful if you're starting from scratch and don't have a product already built."</span></li>
-            </ol>
-          </div>
-          <div>
-            <div class="sec-label">How to use it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>In Claude Code, activate the "Grill Me" skill.</span></li>
-              <li><span class="n">2</span><span>Describe the design decision you're about to make and the options you're considering.</span></li>
-              <li><span class="n">3</span><span>Claude will challenge your assumptions, ask hard questions, and surface things you may have missed.</span></li>
-              <li><span class="n">4</span><span>Use the output to refine or validate your logic before implementing — not as a final answer.</span></li>
-            </ol>
-          </div>
-          <div class="prompt-wrap">
-            <div class="prompt-label">Grill Me starting prompt</div>
-            <pre class="prompt">I'm about to make a design decision and I want you to challenge my thinking before I build it.
-
-Context: [Describe the product and what you're designing]
-
-The decision: [Describe the specific design decision]
-
-My current plan: [Describe what you're going to do and why]
-
-Please grill me on this. Ask me the hard questions I haven't answered. Challenge my assumptions. Tell me what could go wrong. Don't let me off easy.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
-          </div>
-        </div></div>
-      </div>
-
-      <!-- 3.6 — NEW -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">☑️</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Cross-check your design against the original requirements</strong>
-            <div class="sc-meta"><span class="badge-new">New</span><span class="by">Recommended before any stakeholder design review</span></div>
+            <div class="sc-meta"><span class="badge-new">Recommended</span><span class="by">Before every stakeholder design review</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
+          <div class="callout info"><span class="ci">ℹ</span><div>It's easy to drift from original requirements when iterating with AI. This step catches gaps before stakeholders do — so you're not walking into a review with a design that misses a must-have feature.</div></div>
           <div>
-            <div class="sec-label">Why this matters</div>
-            <ol class="how">
-              <li><span class="n">!</span><span>It's easy to drift from original requirements when iterating with AI. This step catches gaps before stakeholders do — so you're not walking into a review with a design that misses a must-have feature.</span></li>
-            </ol>
-          </div>
-          <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Export your current design as screenshots or a PDF walkthrough.</span></li>
-              <li><span class="n">2</span><span>Attach it to ChatPwC along with the original PRD or requirements document.</span></li>
-              <li><span class="n">3</span><span>Run the prompt below.</span></li>
-              <li><span class="n">4</span><span>Address any gaps before the review.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Export your current design as <b>screenshots or a PDF walkthrough</b>.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Attach it to ChatPwC along with the <b>original PRD or requirements document</b>.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content">Run the prompt below to get a requirements traceability check.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div></div>
+                <div class="howto-content"><b>Address any gaps</b> identified before the review. Don't let the stakeholder be the one to find them.</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Requirements traceability prompt</div>
-            <pre class="prompt">I've attached two things:
+            <div class="prompt-lbl">Requirements traceability prompt</div>
+            <div class="prompt-box">
+              <pre>I've attached two things:
 1. The project requirements document (PRD)
 2. Screenshots of my current design
 
-Please review the design against the requirements and tell me:
+Review the design against the requirements and tell me:
 
-1. Which requirements are clearly addressed in the design — cite the screen or element that covers each one
-2. Which requirements are partially addressed — what's missing or unclear
-3. Which requirements appear to be missing entirely from the design
+1. Which requirements are clearly addressed — cite the screen or element for each
+2. Which are partially addressed — what's missing or unclear
+3. Which appear to be missing entirely from the design
 4. Any functionality in the design that doesn't trace back to a stated requirement (scope creep risk)
 
 Format as a table: Requirement | Status (Addressed / Partial / Missing) | Evidence or Gap</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
         </div></div>
       </div>
 
-      <!-- 3.7 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">🗺️</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Create journey maps and service blueprints from project insights</strong>
             <div class="sc-meta"><span class="by">Sydney · Robyn</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
-            <div class="sec-label">Sydney's workflow</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Define your journey template — phases, swim lanes, and what content goes in each lane.</span></li>
-              <li><span class="n">2</span><span>Attach all relevant project documents (research synthesis, stakeholder transcripts, requirements).</span></li>
-              <li><span class="n">3</span><span>Prompt ChatPwC (Opus) to produce the journey map following your template.</span></li>
-              <li><span class="n">4</span><span>Download as PDF → review → fill your Miro template based on the output, adding nuance manually.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Define your <b>journey template</b> — phases, swim lanes, and what content goes in each lane.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Attach all relevant project documents — <b>research synthesis, transcripts, requirements</b>.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content">Prompt <b>ChatPwC (Opus)</b> to produce the journey map following your template. Use the prompt below.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div></div>
+                <div class="howto-content">Download as PDF → review → <b>fill your Miro template</b> based on the output, adding nuance and insight manually.</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Journey map prompt</div>
-            <pre class="prompt">I need to create a target-state journey map for [Project Name]. Use the attached project documents as your knowledge source.
+            <div class="prompt-lbl">Journey map prompt</div>
+            <div class="prompt-box">
+              <pre>I need to create a target-state journey map for [Project Name]. Use the attached documents as your knowledge source.
 
-Journey template:
-- Phases: [e.g. Discover / Apply / Onboard / Use / Renew]
+Journey phases: [e.g. Discover / Apply / Onboard / Use / Renew]
 
 For each phase, provide:
 1. Actions — what is the user doing?
@@ -1116,45 +1281,44 @@ For each phase, provide:
 5. Key touchpoints — digital and human
 6. Design opportunities — specific things we could do to improve this phase
 
-Format as a table with phases as columns. Draw from the actual project insights in the documents — not generic UX patterns.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+Format as a table with phases as columns. Draw from the actual project insights — not generic UX patterns.</pre>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
-          <div class="callout tip"><span class="ci">💡</span><span>Robyn's research deck workflow: use ChatPwC Opus to process all insights → draft a deck outline → refine → then use Copilot Opus with a previous deck as a design template to generate the first PowerPoint draft.</span></div>
         </div></div>
       </div>
 
-    </div><!-- /steps p3 -->
+    </div>
 
     <div class="insights">
       <div class="ins w"><h4>What's working</h4><ul>
-        <li>Claude Code + Figma MCP is the fastest path from static design to working prototype</li>
-        <li>Appkit connection means generated screens are already compliant from the start</li>
+        <li>Claude Code + Figma MCP is the fastest path to a working prototype</li>
+        <li>Appkit connection means generated screens are compliant from the start</li>
         <li>Data viz generation from Excel saves significant manual effort</li>
-        <li>Requirements traceability catches drift before stakeholders do</li>
+        <li>Requirements check catches drift before stakeholders do</li>
       </ul></div>
       <div class="ins t"><h4>Tensions &amp; concerns</h4><ul>
-        <li>AI visuals don't always match brand guidelines — requires manual correction</li>
-        <li>Figma Make token limits create mid-workflow interruptions</li>
+        <li>AI visuals don't always match brand guidelines — requires correction</li>
+        <li>Figma Make token limits interrupt mid-workflow</li>
         <li>File hygiene degrades fast with AI-generated content</li>
       </ul></div>
       <div class="ins n"><h4>Next steps</h4><ul>
-        <li>Set up Appkit + Claude connection at the start of every project — not mid-way</li>
+        <li>Set up Appkit + Claude connection at the start of every project</li>
         <li>Standardize prompts for Figma Make design generation</li>
         <li>Make requirements cross-check a standard step before every review</li>
       </ul></div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════
-       PHASE 4 — QA & Handoff
-  ═══════════════════════════════════════ -->
-  <div id="p4" class="panel" style="--pc:#4CAF82;--pc-bg:#f0faf5;--pc-mid:#C3EDD6;--pc-dk:#2e7d54;">
+  <!-- ═══════════════ PHASE 4 ═══════════════ -->
+  <div id="p4" class="panel"
+    style="--pc:#43B02A;--pc-light:#EDFAE9;--pc-mid:#BDEAB3;--pc-dk:#287019;">
 
-    <div class="ph-head">
-      <div class="ph-num">4</div>
-      <div class="ph-info">
+    <div class="ph">
+      <div class="ph-badge">4</div>
+      <div class="ph-text">
         <h2>QA, Annotation &amp; Handoff</h2>
-        <p class="ph-desc">Deliver clean, accessible, brand-compliant files ready for development — with minimal manual cleanup and a clear record of every decision.</p>
+        <p>Deliver clean, accessible, brand-compliant files ready for development — with minimal manual cleanup and a clear record of every design decision.</p>
         <div class="tool-row">
           <span class="tool">Figma Skills</span>
           <span class="tool">Claude Code</span>
@@ -1167,373 +1331,372 @@ Format as a table with phases as columns. Draw from the actual project insights 
 
     <div class="steps">
 
-      <!-- 4.1 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">🧹</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Run the file hygiene Figma skill — clean layers, spacing &amp; naming</strong>
             <div class="sc-meta"><span class="by">Loubna · Noah</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
-            <div class="sec-label">One-time setup</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>In Figma, open the Agents panel (bottom left). Click "+" → Skills → Add New Skill.</span></li>
-              <li><span class="n">2</span><span>Click "Start from scratch," name it "File Hygiene," and paste the instructions below.</span></li>
-            </ol>
+            <div class="slabel">One-time setup</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">In Figma, open the <b>Agents panel</b> (bottom left). Click "+" → Skills → Add New Skill.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div></div>
+                <div class="howto-content">Click <b>"Start from scratch,"</b> name it "File Hygiene," and paste the instructions below.</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">File hygiene skill instructions</div>
-            <pre class="prompt">Perform a complete visual-consistency and file-hygiene pass on this Figma file.
+            <div class="prompt-lbl">File hygiene skill instructions</div>
+            <div class="prompt-box">
+              <pre>Perform a complete visual-consistency and file-hygiene pass on this Figma file.
 
-Primary objectives:
-- Make spacing, padding, alignment, sizing, and visual rhythm consistent
+Objectives:
+- Make spacing, padding, alignment, and visual rhythm consistent
 - Clean up layer structure and naming
-- Remove genuinely unused content without touching components, variants, prototypes, or responsive behavior
+- Remove genuinely unused content without touching components, variants, or prototypes
 - Preserve the existing visual design, brand, content, and functionality
 
 Before editing:
 - Create a backup named "Before cleanup – [date]"
-- Audit existing spacing patterns, variables, styles, components, and grids
-- Infer the dominant design system in use — do not introduce a new one
-- If no spacing system exists, use a 4px base grid (common values: 4, 8, 12, 16, 24, 32, 48px)
+- Audit existing spacing patterns, variables, styles, and components
+- Infer the dominant design system — do not introduce a new one
+- If no spacing system exists, use a 4px base grid (4, 8, 12, 16, 24, 32, 48px)
 
-Layout and spacing:
-- Standardize padding and gaps across components serving the same purpose
-- Align objects to shared edges, centres, columns, and baselines
-- Correct accidental 1–2px misalignments
-- Use Auto Layout where it improves consistency
-- Ensure repeated screens use consistent margins, content widths, and section spacing
-
-Layer cleanup:
+Layer cleanup rules:
 - Rename frames, groups, and components with clear, descriptive names
-- Remove empty groups, empty frames, zero-size layers, and abandoned duplicates
-- Remove hidden layers ONLY after verifying they are not used by: component variants, prototype interactions, overlays, masks, or exports
+- Remove empty groups, empty frames, and zero-size layers
+- Remove hidden layers ONLY after verifying they aren't used by: component variants, prototype interactions, overlays, masks, or exports
 - Move anything uncertain to a "Cleanup – Review" page instead of deleting
 
 Guardrails:
 - Do not rewrite content or change the information hierarchy
-- Do not break prototype links, interactions, component properties, or exports
+- Do not break prototype links, interactions, or component properties
 - Do not make subjective redesign changes
 
-When finished, provide a cleanup report: pages modified / spacing system used / layers deleted / items moved to review / unresolved inconsistencies.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+End with a cleanup report: pages modified / spacing system used / layers deleted / items moved to review / unresolved inconsistencies.</pre>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
           <div>
-            <div class="sec-label">How to run it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Select all the mockups you want to clean.</span></li>
-              <li><span class="n">2</span><span>In the Agents panel, click "Use Skill" → "File Hygiene."</span></li>
-              <li><span class="n">3</span><span>Review the cleanup report and check the "Cleanup – Review" page for anything flagged as uncertain before confirming.</span></li>
-            </ol>
+            <div class="slabel">How to run it</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content"><b>Select all the mockups</b> you want to clean.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Agents panel → <b>"Use Skill" → "File Hygiene."</b></div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div></div>
+                <div class="howto-content">Review the cleanup report and check the <b>"Cleanup – Review" page</b> before confirming any deletions.</div>
+              </div>
+            </div>
           </div>
-          <div class="callout warn"><span class="ci">⚠</span><span>Supervise this skill — it can occasionally remove intentional hidden layers. Always review the "Cleanup – Review" page before confirming any deletions.</span></div>
+          <div class="callout warn"><span class="ci">⚠</span><div>Supervise this skill — it can occasionally remove intentional hidden layers. Always review the "Cleanup – Review" page before confirming deletions.</div></div>
         </div></div>
       </div>
 
-      <!-- 4.2 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">✅</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Run the brand compliance Figma skill — check &amp; auto-fix</strong>
             <div class="sc-meta"><span class="by">Loubna</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
-            <div class="sec-label">One-time setup</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Create a new Figma Design file and copy-paste all pages from the PwC design system file into it. You need an editable copy for the skill to access it.</span></li>
-              <li><span class="n">2</span><span>In Figma Agents panel, click "+" → Skills → Add New Skill → Start from scratch.</span></li>
-              <li><span class="n">3</span><span>Name it "Brand Compliance." Download and import the skill file below, or paste the instruction manually.</span></li>
-            </ol>
+            <div class="slabel">One-time setup</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Create a new Figma Design file and <b>copy-paste all pages from the PwC design system</b> into it — you need an editable copy for the skill to access.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Agents panel → "+" → Skills → Add New Skill → <b>Start from scratch.</b> Name it "Brand Compliance."</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div></div>
+                <div class="howto-content"><b>Download the skill file</b> below and import it, or paste the instruction manually.</div>
+              </div>
+            </div>
           </div>
-          <div class="dl-block">
+          <div class="dl">
             <div class="dl-info">
               <div class="dl-icon">📄</div>
               <div>
                 <strong>PwC brand compliance SKILL.md</strong>
-                <span>Ready-to-import Figma skill file — includes design system link</span>
+                <span>Ready-to-import Figma skill — includes PwC design system link</span>
               </div>
             </div>
             <button class="dl-btn" onclick="dlSkill()">↓ Download</button>
           </div>
-          <div class="prompt-wrap" style="margin-top:0;">
-            <div class="prompt-label">Skill instruction — or paste directly into Figma</div>
-            <pre class="prompt">Review a design and make sure the design is brand compliant and uses components from the PwC design system file. https://www.figma.com/design/xbPJ27vCVNf8zUESMRp26b/Untitled?node-id=4-22309&p=f&t=nhsu1cvNvBriBTaO-0</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+          <div class="prompt-wrap">
+            <div class="prompt-lbl">Skill instruction — or paste directly into Figma</div>
+            <div class="prompt-box">
+              <pre>Review a design and make sure the design is brand compliant and uses components from the PwC design system file. https://www.figma.com/design/xbPJ27vCVNf8zUESMRp26b/Untitled?node-id=4-22309&p=f&t=nhsu1cvNvBriBTaO-0</pre>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
           <div>
-            <div class="sec-label">How to run it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Select the mockup(s) you want to review.</span></li>
-              <li><span class="n">2</span><span>Agents panel → "Use Skill" → "Brand Compliance."</span></li>
-              <li><span class="n">3</span><span>Prompt: <code>"Analyze the mockup and make sure it is brand compliant."</code></span></li>
-              <li><span class="n">4</span><span>The skill identifies issues and asks for confirmation before applying fixes. Review each change before confirming.</span></li>
-              <li><span class="n">5</span><span>If it misses things: "You missed [issue]. Try again."</span></li>
-            </ol>
+            <div class="slabel">How to run it</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content"><b>Select the mockup(s)</b> you want to review.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Agents panel → <b>"Use Skill" → "Brand Compliance."</b></div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content">Prompt: <b>"Analyze the mockup and make sure it is brand compliant."</b></div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div><div class="howto-line"></div></div>
+                <div class="howto-content">The skill identifies issues and <b>asks for confirmation</b> before applying fixes. Review each change before confirming.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">5</div></div>
+                <div class="howto-content">If it misses things: <b>"You missed [issue]. Try again."</b></div>
+              </div>
+            </div>
           </div>
-          <div class="callout warn"><span class="ci">⚠</span><span>The skill occasionally misses issues on the first pass. Always run it, review manually, then prompt it to address anything it missed.</span></div>
+          <div class="callout warn"><span class="ci">⚠</span><div>The skill occasionally misses issues on the first pass. Always run it, review manually, then prompt it again to address anything missed.</div></div>
         </div></div>
       </div>
 
-      <!-- 4.3 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">🐛</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Find and fix bugs &amp; accessibility issues with Claude Code</strong>
             <div class="sc-meta"><span class="by">Lisette · Mi</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Open Claude Code in your prototype's working directory.</span></li>
-              <li><span class="n">2</span><span>Run the combined bug + accessibility audit prompt below.</span></li>
-              <li><span class="n">3</span><span>Claude Code identifies issues and makes direct edits to the code to fix them.</span></li>
-              <li><span class="n">4</span><span>Review the summary of changes before committing.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Open <b>Claude Code</b> in your prototype's working directory.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Run the combined bug + accessibility audit prompt below. Claude identifies issues and <b>makes direct edits to the code</b> to fix them.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content">Review the <b>summary of changes</b> before committing anything.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div></div>
+                <div class="howto-content">Once clean and audited, <b>deploy to GitHub</b> and hand off Figma mockups + GitHub repo to BA, QA, and Dev.</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Combined bug + accessibility audit prompt</div>
-            <pre class="prompt">Please run two audits on this codebase and fix what you find:
+            <div class="prompt-lbl">Combined bug + accessibility audit prompt</div>
+            <div class="prompt-box">
+              <pre>Please run two audits and fix what you find:
 
 1. Bug audit — identify and fix:
    - JavaScript errors or broken interactions
-   - Visual inconsistencies between the design and implementation
+   - Visual inconsistencies between design and implementation
    - Broken navigation flows or unexpected behavior
    - Console errors or warnings
 
 2. Accessibility audit (WCAG 2.1 AA) — identify and fix:
    - Missing or incorrect ARIA labels and roles
-   - Color contrast ratios below 4.5:1 (normal text) or 3:1 (large text)
+   - Color contrast below 4.5:1 (normal text) or 3:1 (large text)
    - Keyboard navigation issues — focus order, missing focus indicators
    - Missing alt text on images and icons
    - Form inputs without associated labels
    - Interactive elements unreachable by keyboard
 
-After fixing, give me a summary: what you found, what you fixed, and anything that needs a design decision before it can be fixed.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
-          </div>
-          <div>
-            <div class="sec-label">Handoff</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Once the prototype is clean and audited, deploy to GitHub.</span></li>
-              <li><span class="n">2</span><span>Hand off Figma mockups + GitHub repo to BA, QA, and Dev.</span></li>
-            </ol>
+After fixing, summarize: what you found, what you fixed, and anything that needs a design decision before it can be resolved.</pre>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
         </div></div>
       </div>
 
-      <!-- 4.4 — NEW -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">📐</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Generate developer-ready annotations and specs</strong>
-            <div class="sc-meta"><span class="badge-new">New</span><span class="by">Recommended before every dev handoff</span></div>
+            <div class="sc-meta"><span class="badge-new">Recommended</span><span class="by">Before every dev handoff</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
+          <div class="callout info"><span class="ci">ℹ</span><div>Developers shouldn't need to guess at spacing, states, or interaction logic. Generating specs from the working prototype means annotations are accurate — not aspirational estimates made before it was built.</div></div>
           <div>
-            <div class="sec-label">Why this matters</div>
-            <ol class="how">
-              <li><span class="n">!</span><span>Developers shouldn't need to guess at spacing, states, or interaction logic. Generating specs directly from the working prototype means annotations are accurate — not aspirational estimates made before the prototype was built.</span></li>
-            </ol>
-          </div>
-          <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Open Claude Code with your completed prototype.</span></li>
-              <li><span class="n">2</span><span>Run the prompt below to generate a developer specification document.</span></li>
-              <li><span class="n">3</span><span>Review and add context for any decisions that aren't self-evident from the code.</span></li>
-              <li><span class="n">4</span><span>Include this document with the GitHub repo and Figma file in your handoff package.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Open <b>Claude Code</b> with your completed prototype.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Run the prompt below to generate a <b>developer specification document</b>.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div><div class="howto-line"></div></div>
+                <div class="howto-content">Review and <b>add context</b> for any decisions that aren't self-evident from the code.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">4</div></div>
+                <div class="howto-content">Include this document with the <b>GitHub repo and Figma file</b> in your handoff package.</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Dev spec generation prompt</div>
-            <pre class="prompt">Based on this prototype codebase, generate a developer handoff specification document.
+            <div class="prompt-lbl">Dev spec generation prompt</div>
+            <div class="prompt-box">
+              <pre>Based on this prototype codebase, generate a developer handoff specification document.
 
 Include:
-1. Screen inventory — list of all screens/views with a one-line description of each
-2. Component inventory — all reusable components, their props, and the states they support (default, hover, active, disabled, error, loading)
-3. Interaction specifications — for each interactive element, describe the trigger, action, and outcome
+1. Screen inventory — all screens/views with a one-line description
+2. Component inventory — all reusable components, their props, and states they support (default, hover, active, disabled, error, loading)
+3. Interaction specifications — for each interactive element: trigger, action, outcome
 4. Navigation map — how screens connect and what triggers each transition
 5. Data requirements — what data each screen needs, in what format, and where it comes from
-6. Edge cases — empty states, error states, loading states, and maximum content scenarios that need to be handled
-7. Anything that isn't self-evident from the design — decisions made during the build that developers need to know about
+6. Edge cases — empty states, error states, loading states, and max-content scenarios
+7. Design decisions — anything not self-evident that developers need to know about
 
 Format as a markdown document the dev team can reference during implementation.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
         </div></div>
       </div>
 
-      <!-- 4.5 -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">📋</div>
-          <div class="sc-title">
+          <div class="sc-text">
             <strong>Extract prioritized feedback from review sessions via Copilot</strong>
             <div class="sc-meta"><span class="by">Shikha · Loubna</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
           <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Ensure the review session was recorded and transcribed via Copilot in Teams.</span></li>
-              <li><span class="n">2</span><span>After the session, open the Copilot transcript and run the prompt below.</span></li>
-              <li><span class="n">3</span><span>Use the output as your action list for the next design iteration.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Ensure the review session was <b>recorded and transcribed</b> via Copilot in Teams.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">After the session, open the <b>Copilot transcript</b> and run the prompt below.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div></div>
+                <div class="howto-content">Use the output as your <b>action list for the next design iteration</b>.</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Feedback extraction prompt</div>
-            <pre class="prompt">I just presented design work to stakeholders. Based on this meeting transcript, give me:
+            <div class="prompt-lbl">Feedback extraction prompt</div>
+            <div class="prompt-box">
+              <pre>I just presented design work to stakeholders. Based on this meeting transcript, give me:
 
 1. A prioritized list of changes requested — most critical first, with a brief reason for each
 2. Screen-specific feedback — for each screen or feature mentioned, what was the feedback?
-3. Open questions that need to be resolved before I make changes
-4. Decisions made in the meeting that I should document
+3. Open questions to resolve before making changes
+4. Decisions made in the meeting I should document
 5. What I should NOT change — things that were explicitly validated or approved
 6. My recommended next steps, in order of priority
 
-Format as a clear action list I can work from directly. Cite who said what where it matters.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+Cite who said what where it matters. Format as a clear action list I can work from directly.</pre>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
-          <div class="callout tip"><span class="ci">💡</span><span>This creates a more complete record than manual note-taking. You can focus entirely on the conversation during the review instead of writing while listening.</span></div>
+          <div class="callout tip"><span class="ci">💡</span><div>This creates a more complete record than manual note-taking. Focus entirely on the conversation during the review instead of writing while listening.</div></div>
         </div></div>
       </div>
 
-      <!-- 4.6 -->
-      <div class="sc">
-        <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">📖</div>
-          <div class="sc-title">
-            <strong>Create product walkthrough guides and documentation</strong>
-            <div class="sc-meta"><span class="by">Shikha</span></div>
-          </div>
-          <div class="sc-chevron">▼</div>
-        </div>
-        <div class="sc-body"><div class="sc-inner">
-          <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>This works best when you've been using ChatPwC throughout the project — it already has full context.</span></li>
-              <li><span class="n">2</span><span>Run the prompt below. The guide should be mostly right given the context already built up in the conversation.</span></li>
-              <li><span class="n">3</span><span>Review and edit for accuracy — especially anything AI inferred rather than was told directly.</span></li>
-            </ol>
-          </div>
-          <div class="prompt-wrap">
-            <div class="prompt-label">Walkthrough guide prompt</div>
-            <pre class="prompt">Based on everything we've discussed about [Product Name] in this conversation, write a product walkthrough guide for end users.
-
-The guide should be usable by someone who has never seen this product. Include:
-
-1. What this product does and who it's for (2–3 sentences)
-2. Step-by-step walkthrough of the main user flow (numbered, action-oriented)
-3. Key features explained in plain language — what each does and when to use it
-4. Common tasks with how to complete them (question + answer format works well)
-5. Important things to know — any caveats, limits, or gotchas users should be aware of
-
-Write for a non-technical audience. No jargon. Format as a Word-ready document.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
-          </div>
-        </div></div>
-      </div>
-
-      <!-- 4.7 — NEW -->
       <div class="sc">
         <div class="sc-head" onclick="toggle(this)">
           <div class="sc-icon">📓</div>
-          <div class="sc-title">
-            <strong>Write a design decision log for the project record</strong>
-            <div class="sc-meta"><span class="badge-new">New</span><span class="by">Recommended at project close</span></div>
+          <div class="sc-text">
+            <strong>Write a design decision log before you close the project</strong>
+            <div class="sc-meta"><span class="badge-new">Recommended</span><span class="by">At project close</span></div>
           </div>
-          <div class="sc-chevron">▼</div>
+          <div class="sc-toggle">▼</div>
         </div>
         <div class="sc-body"><div class="sc-inner">
+          <div class="callout info"><span class="ci">ℹ</span><div>Six months after launch, nobody remembers why a decision was made. A decision log means future designers understand the reasoning behind every significant choice, and don't undo good work by accident.</div></div>
           <div>
-            <div class="sec-label">Why this matters</div>
-            <ol class="how">
-              <li><span class="n">!</span><span>Six months after launch, nobody remembers why a decision was made. A design decision log means future designers — or the same team in a later phase — understand the reasoning behind every significant design choice, and don't undo good decisions by accident.</span></li>
-            </ol>
-          </div>
-          <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Export your Figma file as screenshots and attach to ChatPwC along with the project PRD and your research synthesis.</span></li>
-              <li><span class="n">2</span><span>Run the prompt below at the end of the project.</span></li>
-              <li><span class="n">3</span><span>Fill in the "Rationale" column with context only you know — AI will draft the structure, you add the reasoning.</span></li>
-              <li><span class="n">4</span><span>Include in the handoff package alongside the Figma file and GitHub repo.</span></li>
-            </ol>
+            <div class="slabel">Steps to follow</div>
+            <div class="howto">
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">1</div><div class="howto-line"></div></div>
+                <div class="howto-content">Export your Figma file as screenshots and attach to ChatPwC along with the <b>PRD and research synthesis</b>.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">2</div><div class="howto-line"></div></div>
+                <div class="howto-content">Run the prompt below. The AI drafts the <b>structure and options considered</b> — you fill in the rationale column with context only you know.</div>
+              </div>
+              <div class="howto-step">
+                <div class="howto-left"><div class="howto-num">3</div></div>
+                <div class="howto-content">Include in the handoff package alongside the <b>Figma file, GitHub repo, and dev spec</b>.</div>
+              </div>
+            </div>
           </div>
           <div class="prompt-wrap">
-            <div class="prompt-label">Design decision log prompt</div>
-            <pre class="prompt">I'm at the end of a design project and need to document the key design decisions made. Based on the attached PRD, research synthesis, and design screenshots, help me build a design decision log.
+            <div class="prompt-lbl">Design decision log prompt</div>
+            <div class="prompt-box">
+              <pre>I'm closing out a design project and need to document key design decisions. Based on the attached PRD, research synthesis, and design screenshots, build a design decision log.
 
-For each significant design decision you can identify, provide:
+For each significant design decision you can identify:
 - Decision: what was decided (e.g. "Use a step-by-step wizard instead of a single form")
 - Alternatives considered: what other approaches were on the table
-- Rationale: [I will fill this in — leave as TBD for now]
+- Rationale: [leave as TBD — I will fill this in]
 - Trade-offs: what we gained and what we gave up
 - Assumptions: what has to be true for this decision to remain valid
 - Revisit trigger: what would cause us to reconsider this decision
 
-Focus on decisions that are non-obvious or where a future designer might be tempted to change them without understanding why they were made.
-
-Format as a table.</pre>
-            <button class="cpbtn" onclick="cp(this)">Copy</button>
+Focus on decisions that are non-obvious or where a future designer might be tempted to change them without understanding why. Format as a table.</pre>
+              <button class="cpbtn" onclick="cp(this)">Copy</button>
+            </div>
           </div>
         </div></div>
       </div>
 
-      <!-- 4.8 -->
-      <div class="sc">
-        <div class="sc-head" onclick="toggle(this)">
-          <div class="sc-icon">🌍</div>
-          <div class="sc-title">
-            <strong>Add French translation labels using the Figma agent</strong>
-            <div class="sc-meta"><span class="by">Loubna</span></div>
-          </div>
-          <div class="sc-chevron">▼</div>
-        </div>
-        <div class="sc-body"><div class="sc-inner">
-          <div>
-            <div class="sec-label">How to do it</div>
-            <ol class="how">
-              <li><span class="n">1</span><span>Prepare an Excel file with all English labels — each row is one UI field, with English label in a specific column.</span></li>
-              <li><span class="n">2</span><span>Open the Figma agent panel and select the mockups to annotate.</span></li>
-              <li><span class="n">3</span><span>Upload the Excel file.</span></li>
-              <li><span class="n">4</span><span>Prompt: <code>"Put number labels that align with all the fields under column '[English labels column name]'"</code></span></li>
-              <li><span class="n">5</span><span>This creates a numbered annotation layer mapped to each UI field — the translation team can use it to match labels from the Excel file without needing to interpret the design.</span></li>
-            </ol>
-          </div>
-        </div></div>
-      </div>
-
-    </div><!-- /steps p4 -->
+    </div>
 
     <div class="insights">
       <div class="ins w"><h4>What's working</h4><ul>
         <li>Accessibility audit in Claude Code catches issues before dev sees them</li>
         <li>Brand compliance skill removes a slow manual review step</li>
         <li>Transcript feedback capture creates accurate, prioritized action lists</li>
-        <li>Dev spec generation from code means annotations are always accurate</li>
+        <li>Dev spec from code means annotations are always accurate</li>
       </ul></div>
       <div class="ins t"><h4>Tensions &amp; concerns</h4><ul>
-        <li>Brand compliance skill occasionally misses issues — always needs a second pass</li>
-        <li>File hygiene skill needs supervision to avoid removing intentional hidden layers</li>
+        <li>Brand compliance skill occasionally misses issues — needs a second pass</li>
+        <li>File hygiene skill needs supervision to avoid removing intentional layers</li>
         <li>AI-generated docs need human review before sharing externally</li>
       </ul></div>
       <div class="ins n"><h4>Next steps</h4><ul>
@@ -1548,15 +1711,21 @@ Format as a table.</pre>
   <div class="principles">
     <div class="sec-title">Five principles the team works by</div>
     <div class="pr-grid">
-      <div class="pr"><div class="pn">01</div><strong>AI compresses repetition, not judgment</strong><p>Use AI for the slow, mechanical parts. Which direction to pursue, what the user actually needs, what makes the experience right — that's yours.</p></div>
-      <div class="pr"><div class="pn">02</div><strong>Each tool feeds into the next</strong><p>Copilot → ChatPwC → Figma Make → Claude Code. The output of one step is the input to the next. Build the chain deliberately.</p></div>
-      <div class="pr"><div class="pn">03</div><strong>Always QA the output</strong><p>Synthesized research, generated designs, brand checks, dev specs — every AI output needs a human review pass before it's used. Confident-sounding hallucinations are real.</p></div>
-      <div class="pr"><div class="pn">04</div><strong>Constrain prompts to reality</strong><p>Bake platform and design system limits into prompts before running them — not after. Unconstrained prompts produce unbuildable work.</p></div>
-      <div class="pr"><div class="pn">05</div><strong>Standardize to scale</strong><p>Strong individual workflows need to become shared prompt libraries. Knowledge siloed in one person's brain doesn't count as team capability.</p></div>
+      <div class="pr"><div class="pn">01</div><strong>AI compresses repetition, not judgment</strong><p>Use AI for the slow, mechanical parts. Which direction to pursue, what the user needs, what makes the experience right — that stays with you.</p></div>
+      <div class="pr"><div class="pn">02</div><strong>Each tool feeds into the next</strong><p>Copilot → ChatPwC → Figma Make → Claude Code. The output of one step is the input to the next. Build the chain deliberately from the start of every project.</p></div>
+      <div class="pr"><div class="pn">03</div><strong>Always QA the output</strong><p>Every AI output needs a human review pass before it's used. Synthesized research, generated designs, brand checks, dev specs — confident-sounding hallucinations are real.</p></div>
+      <div class="pr"><div class="pn">04</div><strong>Constrain prompts to reality</strong><p>Bake platform and design system limits into prompts before running them — not after. Unconstrained prompts produce unbuildable work that wastes everyone's time.</p></div>
+      <div class="pr"><div class="pn">05</div><strong>Standardize to scale</strong><p>Strong individual workflows need to become shared prompt libraries. Knowledge siloed in one person's head doesn't count as team capability.</p></div>
     </div>
   </div>
 
-  <footer>PwC Canada · UX &amp; Service Design · August 2026 · Lisette · Holly · Sydney · Mi · Noah · Shikha · Loubna · Robyn</footer>
+  <footer>
+    <div class="fl">
+      <div class="pwc-mark">PwC</div>
+      <p>PwC Canada · UX &amp; Service Design</p>
+    </div>
+    <p>Lisette · Holly · Sydney · Mi · Noah · Shikha · Loubna · Robyn · 2026</p>
+  </footer>
 </div>
 
 <script>
@@ -1564,7 +1733,7 @@ function toggle(head) { head.parentElement.classList.toggle('open'); }
 
 function go(id, btn) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.ptab').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1574,7 +1743,7 @@ function cp(btn) {
   const pre = btn.previousElementSibling;
   navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
     const orig = btn.textContent;
-    btn.textContent = 'Copied!';
+    btn.textContent = '✓ Copied';
     btn.classList.add('ok');
     setTimeout(() => { btn.textContent = orig; btn.classList.remove('ok'); }, 2000);
   });
